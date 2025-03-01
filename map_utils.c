@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 08:30:39 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/01 11:45:39 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/01 12:13:53 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	list_to_darray(t_cub *data, int i)
 		exit(1);
 	while (mp)
 	{
-	printf("MAPS LIST *******************\n");
+	// printf("MAPS LIST *******************\n");
 		data->maps->map[i++] = dup_line(mp->line);
 		mp = mp->next;
 	}
@@ -137,7 +137,8 @@ void	Map_boundaries(int *end, char **map)
 	size = coun_line(map) - 1;
 	if (!map || !*map)
 		exit (1);
-	printf("!!!!!!!!!!!!!!!!!%d\n", size);
+	if (size == 0)
+		return ;
 	while (map[size] && just_empty_line(map[size]) == true)
 		size--;
 	*end = size;

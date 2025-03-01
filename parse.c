@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:30:42 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/01 11:31:00 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/01 12:34:15 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	set_map(t_cub *data)
 		write(2, "Error\nmap not found\n", 20);
 		exit(1);
 	}
-	printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n\n ");
 	all_element_is_good(data);
 	init_data(NULL, NULL, &maps, MAP);
 	data->maps = &maps;//start map checking

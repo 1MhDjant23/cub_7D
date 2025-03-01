@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:41:21 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/01 11:28:55 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/01 12:30:02 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ bool	just_empty_line(char *line)
 		return (true);
 	if (line[i] == ' ')
 		i += skip_spaces(line);
-	if (line[i] == '\n')
+	if (line[i] == '\0' || line[i] == '\n')
 		return (true);
 	return (false);
 }

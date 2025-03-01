@@ -9,7 +9,7 @@ NAME = cub3D
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 SRC = parse.c main.c utils.c err_message.c verife_must_element.c\
 	utils_V1.c ft_free.c map_utils.c\
