@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:30:42 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/02/19 09:23:34 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/01 11:31:00 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,36 +54,17 @@ void	set_map(t_cub *data)
 		write(2, "Error\nmap not found\n", 20);
 		exit(1);
 	}
+	printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n\n ");
 	all_element_is_good(data);
 	init_data(NULL, NULL, &maps, MAP);
 	data->maps = &maps;//start map checking
 	set_element(data);
 	check_wall_of_map(data);
-	// printf("$$$$$$$$$$$$$$÷$$$$\n");
 	free_d_arr(maps.map);
 	maps.map = NULL;
 	reset_map(data);
-	// printf("for new line\n\n");
 	insid_map(data, data->help->x);
-	// int	x=0;
-	// while (maps.map[x])
-	// {
-	// 	printf("%s\n", maps.map[x++]);
-	// }
-	
-	// printf("%d\n", data->begin_map);
-	// t_filling *tmp = data->filling;
-	// while (tmp)
-	// {
-	// 	printf("%s", tmp->line);
-		// printf("%s\n", data->maps->CE_color);
-		// printf("%s\n", data->maps->FL_color);
-		// printf("%s\n", data->maps->N_texture);
-		// printf("%s\n", data->maps->S_texture);
-		// printf("%s\n", data->maps->W_texture);
-		// printf("%s\n", data->maps->E_texture);
-	// 	tmp = tmp->next;
-	// }
+
 }
 
 bool	first_step_to_map(t_cub *data)

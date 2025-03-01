@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:41:21 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/02/28 21:01:07 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/01 11:28:55 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,6 @@ char	*extract_element(char *line, int index, char *src, int x)
 		count++;
 		i++;
 	}
-	// printf("#%s#\n", line);
 	if (line[i] == ' ')
 	{
 		i += skip_spaces(&line[i]);

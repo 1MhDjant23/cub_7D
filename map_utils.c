@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 08:30:39 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/02/20 11:35:15 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/01 11:45:39 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@ int	list_size(t_filling *mp)
 	return (size);
 }
 
-size_t	getLastCharInLine(char *line)
-{
-	size_t	len;
+// size_t	getLastCharInLine(char *line)
+// {
+// 	size_t	len;
 	
-	if (!line)
-		return (0);
-	len = ft_strlen(line) - 2;
-	// if (line[len] != '\n')
-	// 	len += 1;
-	while (line[len] && len > 0 && line[len] == ' ')
-		len--;
-	return (len + 1);
-}
+// 	if (!line)
+// 		return (0);
+// 	len = ft_strlen(line) - 2;
+// 	// if (line[len] != '\n')
+// 	// 	len += 1;
+// 	while (line[len] && len > 0 && line[len] == ' ')
+// 		len--;
+// 	return (len + 1);
+// }
 
 char	*dup_line(char *s1)
 {
@@ -50,29 +50,16 @@ char	*dup_line(char *s1)
 	if (!s1)
 		return (NULL);
 	if (just_empty_line(s1) == true)
-	{
-		// printf("00000))))))))))))\n");
 		return (ft_strdup("\n"));
-	}
 	len = ft_strlen(s1) - 2;
-	// printf("$%s$", );
-	// printf("last char is:%zu##%s#\n", getLastCharInLine(s1), s1);
 	while (len >= 0 && s1[len] && s1[len] == ' ')
-	{
-		// printf("first skip of space\n");
 		len--;
-	}
-	// len++;
-	if (s1[len] != '\n')
-		len += 1;
+	len++;
 	dup_l = malloc((len + 2) * sizeof(char));
 	if (!dup_l)
 		return (NULL);
 	if (s1[0] != '\n' && s1[0] != ' ' && ft_strlen(s1) == 1)
 		return (ft_strdup(s1));
-	if (s1[len] == ' ')
-		len -= 1;
-		// printf("there is a space:%s\n", s1);
 	while (++i < len)
 		dup_l[i] = s1[i];
 	dup_l[i++] = '\n';
@@ -86,7 +73,6 @@ void	list_to_darray(t_cub *data, int i)
 	int			size;
 
 	i = 0;
-	// printf(">>>>>>> \n");
 	mp = data->filling;
 	size = list_size(mp);
 	data->maps->map = malloc(sizeof(char*) * (size + 1));
@@ -94,11 +80,8 @@ void	list_to_darray(t_cub *data, int i)
 		exit(1);
 	while (mp)
 	{
-		// printf("last char:%zu:\n", getLastCharInLine(mp->line));
-		// data->maps->map[i] = ft_substr(mp->line, 0, getLastCharInLine(mp->line));
-		data->maps->map[i] = dup_line(mp->line);
-		// printf("#%s#", data->maps->map[i]);
-		i++;
+	printf("MAPS LIST *******************\n");
+		data->maps->map[i++] = dup_line(mp->line);
 		mp = mp->next;
 	}
 	data->maps->map[i] = NULL;
@@ -109,7 +92,6 @@ void	list_to_darray(t_cub *data, int i)
 bool	line_map(char *line, int i)
 {
 	i = 0;
-	// printf("this the first line:%s:\n", line);
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] == ' ')
@@ -124,7 +106,6 @@ bool	line_map(char *line, int i)
 void	wall_check(char *line, int index, int i)
 {
 	i = 0;
-	// printf("!%s!\n", line);
 	i += skip_spaces(line);
 	if (line[i] && line[i] == '\n')
 	{
@@ -156,6 +137,7 @@ void	Map_boundaries(int *end, char **map)
 	size = coun_line(map) - 1;
 	if (!map || !*map)
 		exit (1);
+	printf("!!!!!!!!!!!!!!!!!%d\n", size);
 	while (map[size] && just_empty_line(map[size]) == true)
 		size--;
 	*end = size;
@@ -184,7 +166,6 @@ void	check_wall_of_map(t_cub *data)
 	}
 	while (maps->map[hl->i] && hl->i <= data->end_map)
 	{
-		// printf("lienenenen:%s:\n", maps->map[hl->i]);
 		if (hl->i == data->end_map)
 		{
 			if (line_map(maps->map[hl->i], hl->x) == false) // check the last line.
