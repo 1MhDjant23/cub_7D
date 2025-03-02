@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:35:59 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/01 12:13:35 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/02 11:24:01 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	set_element(t_cub *data)
 	while (mp && mp->line && (data->help->x < data->begin_map - 1 || just_empty_line(mp->line) == true))
 	{
 		if (just_empty_line(mp->line) == false)
-			expand_texture(data->maps, mp->line);
+			expand_texture(data, mp->line);
 		prev = mp;
 		mp = mp->next;
 		free(prev->line);
@@ -140,6 +140,10 @@ void	set_element(t_cub *data)
 		}
 		(data->help->x)++;
 	}
+	// printf("%s\n", data->maps->N_texture);
+	// printf("%s\n", data->maps->S_texture);
+	// printf("%s\n", data->maps->W_texture);
+	// printf("%s\n", data->maps->E_texture);
 	data->filling = mp;
 }
 

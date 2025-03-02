@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 08:30:39 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/01 12:13:53 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/02 11:23:44 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	list_to_darray(t_cub *data, int i)
 		exit(1);
 	while (mp)
 	{
-	// printf("MAPS LIST *******************\n");
 		data->maps->map[i++] = dup_line(mp->line);
 		mp = mp->next;
 	}
@@ -146,11 +145,10 @@ void	Map_boundaries(int *end, char **map)
 
 void	check_wall_of_map(t_cub *data)
 {
-	t_map	*maps;
 	t_help	*hl;
 
-	maps = data->maps;
 	hl = data->help;
+	// init_data(NULL, NULL, data->maps, MAP);
 	init_data(NULL, data->help, NULL, HELP);
 	if (!data->filling)
 	{
@@ -159,24 +157,24 @@ void	check_wall_of_map(t_cub *data)
 	}
 	list_to_darray(data, data->help->x);
 	Map_boundaries(&data->end_map, data->maps->map);
-	if (line_map(maps->map[(hl->i)++], hl->x) == false) // line_map check the content of first and last line.
+	if (line_map(data->maps->map[(hl->i)++], hl->x) == false) // line_map check the content of first and last line.
 	{
 		print_errline(ft_itoa(data->begin_map), "Error\n");
 		write(2, ";this line must be the top-wall of the map, must contain only '1'.\n", 67);
 		exit(1);
 	}
-	while (maps->map[hl->i] && hl->i <= data->end_map)
+	while (data->maps->map[hl->i] && hl->i <= data->end_map)
 	{
 		if (hl->i == data->end_map)
 		{
-			if (line_map(maps->map[hl->i], hl->x) == false) // check the last line.
+			if (line_map(data->maps->map[hl->i], hl->x) == false) // check the last line.
 			{
 				print_errline(ft_itoa(data->begin_map + hl->i), "Error\n");
 				write(2, ";this line must be the bottom-wall of the map, must contain only '1'.\n", 70);
 				exit(1);
 			}
 		}
-		wall_check(maps->map[hl->i], data->begin_map + hl->i, hl->x);
+		wall_check(data->maps->map[hl->i], data->begin_map + hl->i, hl->x);
 		(hl->i)++;
 	}
 }
@@ -249,23 +247,20 @@ void	reset_map(t_cub *data)
 
 void	insid_map(t_cub *data, int i)
 {
-	t_map	*maps;
 	int		y;
 
-
-	maps = data->maps;
 	y = 0;
-	while (maps->map[++y] && y < data->end_map)
+	while (data->maps->map[++y] && y < data->end_map)
 	{
 		// printf("line from fill:%s\n", maps->map[y+1]);
 
-		player(data, maps->map[y], y, LEFT);
+		player(data, data->maps->map[y], y, LEFT);
 		i = -1;
-		while (maps->map[y][++i])
+		while (data->maps->map[y][++i])
 		{
-			if (maps->map[y][i] == '0' || is_a_player(maps->map[y][i]))
+			if (data->maps->map[y][i] == '0' || is_a_player(data->maps->map[y][i]))
 			{
-				if (ft_strlen(maps->map[y]) > ft_strlen(maps->map[y - 1]) && i >= (int)(ft_strlen(maps->map[y - 1]) ) && maps->map[y][i] != '1')
+				if (ft_strlen(data->maps->map[y]) > ft_strlen(data->maps->map[y - 1]) && i >= (int)(ft_strlen(data->maps->map[y - 1]) ) && data->maps->map[y][i] != '1')
 				{
 					write(2, "Error\nLn ", 9);
 					write(2, ft_itoa(data->begin_map + y), ft_strlen(ft_itoa(data->begin_map + y)));
@@ -273,7 +268,7 @@ void	insid_map(t_cub *data, int i)
 					write(2, ft_itoa(i + 1), ft_strlen(ft_itoa(i + 1)));
 					exit(write(2, ";map must closed and surrounded by walls\n", 41));
 				}
-				if (ft_strlen(maps->map[y]) > ft_strlen(maps->map[y + 1]) && i >= (int)(ft_strlen(maps->map[y + 1]) ) && maps->map[y][i] != '1')
+				if (ft_strlen(data->maps->map[y]) > ft_strlen(data->maps->map[y + 1]) && i >= (int)(ft_strlen(data->maps->map[y + 1]) ) && data->maps->map[y][i] != '1')
 				{
 					write(2, "Error\nLn ", 9);
 					write(2, ft_itoa(data->begin_map + y), ft_strlen(ft_itoa(data->begin_map + y)));
@@ -281,10 +276,10 @@ void	insid_map(t_cub *data, int i)
 					write(2, ft_itoa(i + 1), ft_strlen(ft_itoa(i + 1)));
 					exit(write(2, ";map must closed and surrounded by walls\n", 41));
 				}
-				if ((maps->map[y][i + 1] && maps->map[y][i + 1] != '0' && maps->map[y][i + 1] != '1' && !is_a_player(maps->map[y][i + 1]))
-					|| (maps->map[y][i - 1] && maps->map[y][i - 1] != '0' && maps->map[y][i - 1] != '1' && !is_a_player(maps->map[y][i - 1]))
-					|| (maps->map[y + 1][i] && maps->map[y + 1][i] != '0' && maps->map[y + 1][i] != '1' && !is_a_player(maps->map[y + 1][i]))
-					|| (maps->map[y - 1][i] && maps->map[y - 1][i] != '0' && maps->map[y - 1][i] != '1'  && !is_a_player(maps->map[y - 1][i])))
+				if ((data->maps->map[y][i + 1] && data->maps->map[y][i + 1] != '0' && data->maps->map[y][i + 1] != '1' && !is_a_player(data->maps->map[y][i + 1]))
+					|| (data->maps->map[y][i - 1] && data->maps->map[y][i - 1] != '0' && data->maps->map[y][i - 1] != '1' && !is_a_player(data->maps->map[y][i - 1]))
+					|| (data->maps->map[y + 1][i] && data->maps->map[y + 1][i] != '0' && data->maps->map[y + 1][i] != '1' && !is_a_player(data->maps->map[y + 1][i]))
+					|| (data->maps->map[y - 1][i] && data->maps->map[y - 1][i] != '0' && data->maps->map[y - 1][i] != '1'  && !is_a_player(data->maps->map[y - 1][i])))
 				{
 					write(2, "Error\nLn ", 9);
 					write(2, ft_itoa(data->begin_map + y), ft_strlen(ft_itoa(data->begin_map + y)));

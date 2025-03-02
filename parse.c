@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:30:42 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/01 12:34:15 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/02 11:25:27 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,19 @@ bool	check_valid_extension(char *file_name)
 
 void	set_map(t_cub *data)
 {
-	t_map	maps;
+	t_map	*maps;
 
+	maps = malloc(sizeof(t_map));
+	if (!maps)
+		exit(EXIT_FAILURE);
+	data->maps = maps;//start map checking
 	data->help->i = open(data->file, O_RDONLY, 0644);
 	if (data->help->i == -1)
 	{
 		perror("open");// no alloc at this statement	
 		exit(EXIT_FAILURE);
 	}
+	init_data(NULL, NULL, data->maps, MAP);
 	before_filling(data);// reading into the file, and store map in a char*.
 	first_check_of_elem(data);
 	if (!data->filling)
@@ -55,12 +60,10 @@ void	set_map(t_cub *data)
 		exit(1);
 	}
 	all_element_is_good(data);
-	init_data(NULL, NULL, &maps, MAP);
-	data->maps = &maps;//start map checking
 	set_element(data);
 	check_wall_of_map(data);
-	free_d_arr(maps.map);
-	maps.map = NULL;
+	free_d_arr(data->maps->map);
+	data->maps->map = NULL;
 	reset_map(data);
 	insid_map(data, data->help->x);
 

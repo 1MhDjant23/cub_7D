@@ -6,28 +6,28 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:04:20 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/01/08 08:13:41 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/02 11:21:43 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	expand_texture(t_map *maps, char *info)
+void	expand_texture(t_cub *data, char *info)
 {
 	if (!info)
 		return ;
 	if (info[0] && info[0] == 'N')
-		maps->N_texture = ft_strdup(&info[2]);
+		data->maps->N_texture = ft_strdup(&info[2]);
 	if (info[0] && info[0] == 'S')
-		maps->S_texture = ft_strdup(&info[2]);
+		data->maps->S_texture = ft_strdup(&info[2]);
 	if (info[0] && info[0] == 'W')
-		maps->W_texture = ft_strdup(&info[2]);
+		data->maps->W_texture = ft_strdup(&info[2]);
 	if (info[0] && info[0] == 'E')
-		maps->E_texture = ft_strdup(&info[2]);
+		data->maps->E_texture = ft_strdup(&info[2]);
 	if (info[0] && info[0] == 'C')
-		maps->CE_color = ft_strdup(&info[1]);
+		data->maps->CE_color = ft_strdup(&info[1]);
 	if (info[0] && info[0] == 'F')
-		maps->FL_color = ft_strdup(&info[1]);
+		data->maps->FL_color = ft_strdup(&info[1]);
 }
 
 

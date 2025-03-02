@@ -94,7 +94,7 @@ typedef	struct s_cub
 
 bool	check_valid_extension(char *file_name);
 bool	first_step_to_map(t_cub *data);
-
+void	print_position(t_stat position);
 /*__________ Utils ______________ Utils _________________ Utils ____________________*/
 
 size_t	ft_compare(char *s1, char *s2);
@@ -127,7 +127,7 @@ char	*valid_arg_color(char *line, int index, int i);
 size_t	getLastCharInLine(char *line);
 void	check_wall_of_map(t_cub *data);
 void	set_element(t_cub *data);
-void	expand_texture(t_map *maps, char *info);
+void	expand_texture(t_cub *data, char *info);
 int		list_size(t_filling *mp);
 void	insid_map(t_cub *data, int i);
 void	reset_map(t_cub *data);
