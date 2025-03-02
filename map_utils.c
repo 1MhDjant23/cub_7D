@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 08:30:39 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/02 11:23:44 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/02 12:18:04 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,18 @@ void	check_wall_of_map(t_cub *data)
 	}
 }
 
+void	set_position(t_map *maps, char p)
+{
+	if (p == 'N')
+		maps->start_position = NORTH;
+	if (p == 'S')
+		maps->start_position = SOUTH;
+	if (p == 'E')
+		maps->start_position = EAST;
+	if (p == 'W')
+		maps->start_position = WEST;
+}
+
 void	player(t_cub *data, char *line, int y, t_stat stat)
 {
 	int	i;
@@ -190,8 +202,9 @@ void	player(t_cub *data, char *line, int y, t_stat stat)
 		{
 			if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
 			{
+				set_position(data->maps, line[i]);
 				data->maps->pl_xx = i + 1;
-				data->maps->pl_yy = y + 1;
+				data->maps->pl_yy = y + data->begin_map;
 				data->player++;
 			}
 		}
@@ -235,12 +248,6 @@ void	reset_map(t_cub *data)
 	}
 	i = 0;
 	data->maps->map = ft_split(data->help->tmp, '\n');
-	// while (data->maps->map[i] )
-	// {
-		
-	// 	printf("$%s$\n", data->maps->map[i++]);
-	// }
-	
 	free(data->help->tmp);
 	data->help->tmp = NULL;
 }
@@ -252,8 +259,6 @@ void	insid_map(t_cub *data, int i)
 	y = 0;
 	while (data->maps->map[++y] && y < data->end_map)
 	{
-		// printf("line from fill:%s\n", maps->map[y+1]);
-
 		player(data, data->maps->map[y], y, LEFT);
 		i = -1;
 		while (data->maps->map[y][++i])
