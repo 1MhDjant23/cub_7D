@@ -54,6 +54,8 @@ typedef	struct	s_map
 	char	*CE_color;
 	int			pl_xx;
 	int			pl_yy;
+	int			rwo;
+	int			column;
 	t_stat	start_position;//  start position and spawning orientation for player
 }	t_map;
 typedef	struct s_help
@@ -85,6 +87,7 @@ typedef	struct s_cub
 	int			begin_map;
 	int			end_map;
 	int			player;
+	int			count_elem;
 	t_help		*help;
 	t_map		*maps;
 	t_filling	*filling;
@@ -111,8 +114,8 @@ t_filling	*create_node(char *content);
 // bool	check_empty_line(char *line);
 void	add_node(t_filling **head, t_filling *new);
 void	first_check_of_elem(t_cub *data);
-bool	check_line_element(t_help *help, char *line);
-void	set_bool(t_help *help, char c);
+bool	check_line_element(t_help *help, char *line, t_cub *data);
+void	set_bool(t_help *help, char c, t_cub *data);
 bool	find_all_elem(t_help *help);
 bool	just_empty_line(char *line);
 char	*extract_element(char *line, int index, char *src, int x);

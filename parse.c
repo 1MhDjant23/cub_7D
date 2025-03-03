@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:30:42 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/02 11:25:27 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/03 12:23:46 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,27 @@ bool	check_valid_extension(char *file_name)
 	return (true);
 }
 
+void	set_large_line(t_map *maps)
+{
+	size_t	i;
+	size_t	curent;
+	char	*str;
+	str = maps->map[0];
+	i = 1;
+	curent = ft_strlen(maps->map[0]);
+	while (maps->map[i])
+	{
+		if (ft_strlen(maps->map[i]) > curent)
+		{
+			str = maps->map[i];
+			curent = ft_strlen(maps->map[i]);
+		}
+		i++;
+	}
+	maps->column = coun_line(maps->map);
+	maps->rwo = curent;
+}
+
 void	set_map(t_cub *data)
 {
 	t_map	*maps;
@@ -61,7 +82,9 @@ void	set_map(t_cub *data)
 	}
 	all_element_is_good(data);
 	set_element(data);
+	// printf("HEREEEEEEE\n");
 	check_wall_of_map(data);
+	set_large_line(data->maps);
 	free_d_arr(data->maps->map);
 	data->maps->map = NULL;
 	reset_map(data);

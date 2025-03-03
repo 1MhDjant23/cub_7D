@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 08:30:39 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/02 12:18:04 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/03 12:25:22 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,12 +241,12 @@ void	reset_map(t_cub *data)
 	while (fill && ++i <= data->end_map)
 	{
 		data->help->tmp = ft_strjoin(data->help->tmp, fill->line);
+		// printf("%s", fill->line);
 		// free(fill->line);
 		// free(fill);
 		// fill = NULL;
 		fill = fill->next;
 	}
-	i = 0;
 	data->maps->map = ft_split(data->help->tmp, '\n');
 	free(data->help->tmp);
 	data->help->tmp = NULL;
@@ -263,6 +263,8 @@ void	insid_map(t_cub *data, int i)
 		i = -1;
 		while (data->maps->map[y][++i])
 		{
+			if (data->maps->map[y][i] != '0' && data->maps->map[y][i] != '1' && data->maps->map[y][i] != ' ' && !is_a_player(data->maps->map[y][i]))
+				exit(write(2, "Invalid charactere encountered\n", 31));
 			if (data->maps->map[y][i] == '0' || is_a_player(data->maps->map[y][i]))
 			{
 				if (ft_strlen(data->maps->map[y]) > ft_strlen(data->maps->map[y - 1]) && i >= (int)(ft_strlen(data->maps->map[y - 1]) ) && data->maps->map[y][i] != '1')
@@ -271,7 +273,7 @@ void	insid_map(t_cub *data, int i)
 					write(2, ft_itoa(data->begin_map + y), ft_strlen(ft_itoa(data->begin_map + y)));
 					write(2, ", Col ", 6);
 					write(2, ft_itoa(i + 1), ft_strlen(ft_itoa(i + 1)));
-					exit(write(2, ";map must closed and surrounded by walls\n", 41));
+					exit(write(2, ";map must closed and surrounded by walls `1`\n", 45));
 				}
 				if (ft_strlen(data->maps->map[y]) > ft_strlen(data->maps->map[y + 1]) && i >= (int)(ft_strlen(data->maps->map[y + 1]) ) && data->maps->map[y][i] != '1')
 				{
@@ -279,7 +281,7 @@ void	insid_map(t_cub *data, int i)
 					write(2, ft_itoa(data->begin_map + y), ft_strlen(ft_itoa(data->begin_map + y)));
 					write(2, ", Col ", 6);
 					write(2, ft_itoa(i + 1), ft_strlen(ft_itoa(i + 1)));
-					exit(write(2, ";map must closed and surrounded by walls\n", 41));
+					exit(write(2, ";map must closed and surrounded by walls `1`\n", 45));
 				}
 				if ((data->maps->map[y][i + 1] && data->maps->map[y][i + 1] != '0' && data->maps->map[y][i + 1] != '1' && !is_a_player(data->maps->map[y][i + 1]))
 					|| (data->maps->map[y][i - 1] && data->maps->map[y][i - 1] != '0' && data->maps->map[y][i - 1] != '1' && !is_a_player(data->maps->map[y][i - 1]))
@@ -290,7 +292,7 @@ void	insid_map(t_cub *data, int i)
 					write(2, ft_itoa(data->begin_map + y), ft_strlen(ft_itoa(data->begin_map + y)));
 					write(2, ", Col ", 6);
 					write(2, ft_itoa(i + 1), ft_strlen(ft_itoa(i + 1)));
-					exit(write(2, ";map must closed and surrounded by walls\n", 41));
+					exit(write(2, ";map must closed and surrounded by walls `1`\n", 45));
 				}
 			}
 		}

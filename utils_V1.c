@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:41:21 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/02 12:04:46 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/03 11:33:38 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,9 @@ void	first_check_of_elem(t_cub *data)
 	{
 		if (find_all_elem(data->help) == true)
 			break ;
-		if (check_line_element(data->help, mp->line) == true && without_info(mp->line) == false)
+		if (data->count_elem > 6)
+			exit(write(2, "too many element in the map\n", 28));
+		if (check_line_element(data->help, mp->line, data) == true && without_info(mp->line) == false)
 		{
 			write(2, "Error\nInvalid character(or line) between element (line: `", 57);
 			write(2, ft_itoa(i), ft_strlen(ft_itoa(i)));
@@ -157,7 +159,7 @@ bool	without_info(char *line)
 	return (false);
 }
 
-bool	check_line_element(t_help *help, char *line)
+bool	check_line_element(t_help *help, char *line, t_cub *data)
 {
 	int	i;
 
@@ -183,7 +185,7 @@ bool	check_line_element(t_help *help, char *line)
 	else
 		return (true);
 	if (line[i])
-		set_bool(help, line[i]);
+		set_bool(help, line[i], data);
 	return (false);
 }
 

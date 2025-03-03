@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:35:59 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/02 12:05:35 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/03 11:26:21 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_data(t_cub *data, t_help *help, t_map *maps , t_stat stat)
 		data->line_m = NULL;
 		data->help = NULL;
 		data->begin_map = 0;
+		data->count_elem = 0;
 		data->end_map = 0;
 		data->player = 0;
 	}
@@ -64,6 +65,8 @@ void	init_data(t_cub *data, t_help *help, t_map *maps , t_stat stat)
 		maps->E_texture = NULL;
 		maps->pl_xx = 0;
 		maps->pl_yy = 0;
+		maps->rwo = 0;
+		maps->column = 0;
 	}
 }
 
@@ -143,20 +146,38 @@ void	set_element(t_cub *data)
 	data->filling = mp;
 }
 
-void	set_bool(t_help *help, char c)
+void	set_bool(t_help *help, char c, t_cub *data)
 {
 	if (c == 'N')
+	{
 		help->NO = true;
+		data->count_elem++;
+	}
 	else if (c == 'S')
+	{
 		help->SO = true;
+		data->count_elem++;
+	}
 	else if (c == 'W')
+	{
 		help->WE = true;
+		data->count_elem++;
+	}
 	else if (c == 'E')
+	{
 		help->EA = true;
+		data->count_elem++;
+	}
 	else if (c == 'F')
+	{
 		help->F = true;
+		data->count_elem++;
+	}
 	else if (c == 'C')
+	{
 		help->C = true;
+		data->count_elem++;
+	}
 }
 
 bool	find_all_elem(t_help *help)
