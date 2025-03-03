@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:30:42 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/03 12:23:46 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/03 14:58:17 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	set_large_line(t_map *maps)
 		i++;
 	}
 	maps->column = coun_line(maps->map);
-	maps->rwo = curent;
+	maps->rwo = curent - 1;
 }
 
 void	set_map(t_cub *data)
@@ -89,7 +89,6 @@ void	set_map(t_cub *data)
 	data->maps->map = NULL;
 	reset_map(data);
 	insid_map(data, data->help->x);
-
 }
 
 bool	first_step_to_map(t_cub *data)
