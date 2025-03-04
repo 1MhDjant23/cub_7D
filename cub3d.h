@@ -21,8 +21,21 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <math.h>
+#include "../../MLX42/include/MLX42/MLX42.h"
 #include "libft/libft.h"
 #include "get_next_line/get_next_line.h"
+
+/*$$$$$$$$$$$$$$$$$$$$$ macros $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
+#define TILESIZE 50
+#define WIDTH 1800
+#define HEIGHT 900
+#define FOV 60
+#define UP 1
+#define DOWN 2
+#define RIGHT 3
+#define LEFT 4
+#define SPEED 10
 
 /*$$$$$$$$$$$$$$$$$$$$$ Struct $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
 
@@ -33,8 +46,8 @@ typedef	enum	s_stat
 	EXTENS,
 	EMPTY,
 	MAP,
-	LEFT,
-	RIGHT,
+	// LEFT,
+	// RIGHT,
 	NORTH,
 	SOUTH,
 	WEST,
@@ -93,6 +106,31 @@ typedef	struct s_cub
 	t_filling	*filling;
 }				t_cub;
 
+/*$$$$$$$$$$$$$$$$$$$$$ Struct of rays and the player $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
+typedef struct s_ray{
+    double x_ray;
+    double y_ray;
+    double r_angle;
+    int     facing_x;
+    int     facing_y;
+    double Hx;
+    double Hy;
+    double Vx;
+    double Vy;
+    double distance;
+}ray_cast;
+
+typedef struct p{
+    // char **map;
+	t_cub *data;
+   double dir_angle;
+   mlx_t *mlx;
+    mlx_image_t * img;
+    ray_cast *ray;
+    double player_x;
+    double player_y;
+}t_game;
+
 /*_______________________________ Parse Input ______________________________________*/
 
 bool	check_valid_extension(char *file_name);
@@ -146,4 +184,17 @@ int		print_errline(char *i_to_a, char *s1);
 void	free_d_arr(char **str);
 void	free_map_ele(t_map *maps);
 void	free_all_data(t_cub *data);
+
+/*______________________________Recasting Part ___________________________________________*/
+void	key_hook(mlx_key_data_t keydata, void *param);
+double	deg_to_rad(double angle);
+double	normalize_ray_angle(double angle);
+void	check_dir(t_game *game);
+void	facing(t_game *game);
+int		check(t_game *game, double y_ray, double x_ray);
+void	init_game_data(t_game *game);
+void	field_of_view(t_game *game);
+void	key_hook(mlx_key_data_t keydata, void *param);
+void	render_view(t_game *game);
+void	dda(t_game *game , int color, double  x1, double y1);
 #endif

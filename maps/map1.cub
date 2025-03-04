@@ -1,17 +1,17 @@
-NO /Users/mait-taj/Desktop/cub_7D/textures/img-adv--500-employees.PNG                   
-F 20,      100      ,     90
-EA    /Users/mait-taj/Desktop/cub_7D/textures/img-adv--500-employees.PNG                   
-SO /Users/mait-taj/Desktop/cub_7D/textures/img-adv--500-employees.PNG                                               
-C 225,                00000000000000000000, 0
-WE /Users/mait-taj/Desktop/cub_7D/textures/img-adv--500-employees.PNG                 
+NO ./textures/img-adv--500-employees.PNG
+SO ./textures/img-adv--500-employees.PNG
+WE ./textures/img-adv--500-employees.PNG
+EA ./textures/img-adv--500-employees.PNG
 
+F 220,100,0
+C 225,30,0
 
 
 
 1111111111111111111111111111  
      10000110001100000000001 
 1111111111  111111111111111 111
- 11 1011001101110000000000010001 1   1111111111111                                   
+ 11 1011001101110000000000010001 1                                   
 10010000000000000000000111111111                 
 111111111011000001110000000000001    
 100000000011000001110111111111111           
@@ -20,7 +20,7 @@ WE /Users/mait-taj/Desktop/cub_7D/textures/img-adv--500-employees.PNG
 11000000110101011000000100011       
 100000000000000011000000100011       
  100000000000000001101010010001
-1111011001101110000000000010001 1   111111111111       11
+1111011001101110000000000010001 1
 1100000111010101111101111010111               
 11110111 1110101 101111010001 
    101      1 1   1    1 111

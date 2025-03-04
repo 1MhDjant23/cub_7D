@@ -12,7 +12,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 SRC = parse.c main.c utils.c err_message.c verife_must_element.c\
-	utils_V1.c ft_free.c map_utils.c\
+	utils_V1.c ft_free.c map_utils.c   raycasting/key_event_handler.c  raycasting/raycast_utils.c  raycasting/initialization.c raycasting/raycasting_dda.c raycasting/view_projection.c    #r
+
+MLX = ../../MLX42/build/libmlx42.a -I"../../MLX42/include/MLX42/MLX42.h" -lglfw -L"/Users/felhafid/.brew/opt/glfw/lib/"
 
 GET_NEXT_LINE = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
@@ -34,7 +36,7 @@ all:	$(NAME)
 $(NAME):	$(OBJ)
 	@make -C libft/
 	@echo "$(GREEN)$(BOLD)    [ libft archived ]$(END)"
-	@$(CC) $(CFLAGS) $(SRC) $(GET_NEXT_LINE) $(EXE_LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(SRC) $(GET_NEXT_LINE) $(EXE_LIBFT) $(MLX) -o $(NAME) 
 	@sleep 1
 	@echo "$(BOLD)$(YELLOW)    [ Cub3D compiled ] $(END)"
 
