@@ -1,7 +1,7 @@
-NO ./textures/img-adv--500-employees.PNG
-SO ./textures/img-adv--500-employees.PNG
-WE ./textures/img-adv--500-employees.PNG
-EA ./textures/img-adv--500-employees.PNG
+NO ./textures/bluestone.png
+SO ./textures/bluestone.png
+WE ./textures/bluestone.png
+EA ./textures/bluestone.png
 
 F 220,100,0
 C 225,30,0

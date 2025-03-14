@@ -6,11 +6,30 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:04:20 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/02 11:21:43 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:16:35 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
+
+int	get_rgb(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b);
+}
+
+int	convert_floor_celing_color(char *text_color)
+{
+	(void)text_color;
+	// printf("%s\n", text_color);
+	// char	**rgba;
+
+	// rgba = ft_split(text_color, ',');
+	// if (!rgba)
+	// 	exit(write(2, "malloc\n", 7));
+	// printf("#%s\t%s\t%s#\n", rgba[0], rgba[1], rgba[2]);
+	
+	return 0;
+}
 
 void	expand_texture(t_cub *data, char *info)
 {
@@ -25,9 +44,9 @@ void	expand_texture(t_cub *data, char *info)
 	if (info[0] && info[0] == 'E')
 		data->maps->E_texture = ft_strdup(&info[2]);
 	if (info[0] && info[0] == 'C')
-		data->maps->CE_color = ft_strdup(&info[1]);
+		data->maps->CE_color = convert_floor_celing_color(&info[1]);
 	if (info[0] && info[0] == 'F')
-		data->maps->FL_color = ft_strdup(&info[1]);
+		data->maps->FL_color = convert_floor_celing_color(&info[1]);
 }
 
 

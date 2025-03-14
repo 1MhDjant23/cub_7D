@@ -6,11 +6,11 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:35:59 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/03 11:26:21 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:34:43 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 size_t	ft_compare(char *s1, char *s2)
 {
@@ -57,8 +57,8 @@ void	init_data(t_cub *data, t_help *help, t_map *maps , t_stat stat)
 	if (stat == MAP)
 	{
 		maps->map = NULL;
-		maps->CE_color = NULL;
-		maps->FL_color = NULL;
+		maps->CE_color = 0;
+		maps->FL_color = 0;
 		maps->N_texture = NULL;
 		maps->W_texture = NULL;
 		maps->S_texture = NULL;

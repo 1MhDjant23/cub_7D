@@ -6,11 +6,11 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:41:21 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/03 11:33:38 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/06 14:53:50 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 t_filling	*create_node(char *content)
 {
@@ -373,7 +373,7 @@ void	extensionOfTextures(char *path)
 	tmp = ft_strrchr(path, '.');
 	if (!tmp)
 		exit(write(2, "Error\npath of textures must be a type of `.PNG`\n", 48));
-	if (ft_compare(tmp, ".PNG") == 0)
+	if (ft_compare(tmp, ".png") == 0)
 		return ;
 	exit(write(2, "Error\npath of textures must be a type of `.PNG`\n", 48));
 }

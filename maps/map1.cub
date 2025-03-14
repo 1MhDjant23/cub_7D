@@ -1,9 +1,9 @@
-NO ./textures/img-adv--500-employees.PNG
-SO ./textures/img-adv--500-employees.PNG
-WE ./textures/img-adv--500-employees.PNG
-EA ./textures/img-adv--500-employees.PNG
+NO ./textures/eagle.png
+SO ./textures/eagle.png
+WE ./textures/eagle.png
+EA ./textures/eagle.png
 
-F 220,100,0
+F 220, 100,0
 C 225,30,0
 
 

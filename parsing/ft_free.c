@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mait-taj <mait-taj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:51:00 by mait-taj          #+#    #+#             */
-/*   Updated: 2024/12/25 11:39:13 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:35:12 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	free_d_arr(char **str)
 {
@@ -46,11 +46,11 @@ void	free_all_data(t_cub *data)
 
 void	free_map_ele(t_map *maps)
 {
-	if (maps->CE_color)
-	{
-		free(maps->CE_color);
-		maps->CE_color = NULL;
-	}
+	// if (maps->CE_color)
+	// {
+	// 	free(maps->CE_color);
+	// 	maps->CE_color = NULL;
+	// }
 	if (maps->E_texture)
 	{
 		free(maps->E_texture);
@@ -71,9 +71,9 @@ void	free_map_ele(t_map *maps)
 		free(maps->W_texture);
 		maps->W_texture = NULL;
 	}
-	if (maps->FL_color)
-	{
-		free(maps->FL_color);
-		maps->FL_color = NULL;
-	}		
+	// if (maps->FL_color)
+	// {
+	// 	free(maps->FL_color);
+	// 	maps->FL_color = NULL;
+	// }		
 }

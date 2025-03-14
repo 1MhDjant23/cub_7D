@@ -22,14 +22,14 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <math.h>
-#include "../../MLX42/include/MLX42/MLX42.h"
-#include "libft/libft.h"
-#include "get_next_line/get_next_line.h"
+#include "/Users/mait-taj/Desktop/MLX42/include/MLX42/MLX42.h"
+#include "parsing/libft/libft.h"
+#include "parsing/get_next_line/get_next_line.h"
 
 /*$$$$$$$$$$$$$$$$$$$$$ macros $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
 #define TILESIZE 50
-#define WIDTH 1800
-#define HEIGHT 900
+#define WIDTH 1800//2560//1800
+#define HEIGHT 900//1440
 #define FOV 60
 #define UP 1
 #define DOWN 2
@@ -46,15 +46,12 @@ typedef	enum	s_stat
 	EXTENS,
 	EMPTY,
 	MAP,
-	// LEFT,
-	// RIGHT,
 	NORTH,
 	SOUTH,
 	WEST,
-	EAST,
-	// FLOOR,
-	// CEILING,
+	EAST
 }	t_stat;
+
 
 typedef	struct	s_map
 {
@@ -63,8 +60,8 @@ typedef	struct	s_map
 	char	*S_texture;
 	char	*W_texture;
 	char	*E_texture;
-	char	*FL_color;
-	char	*CE_color;
+	int		FL_color;
+	int		CE_color;
 	int			pl_xx;
 	int			pl_yy;
 	int			rwo;
@@ -108,18 +105,30 @@ typedef	struct s_cub
 
 /*$$$$$$$$$$$$$$$$$$$$$ Struct of rays and the player $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
 typedef struct s_ray{
-    double x_ray;
-    double y_ray;
+    double x_ray;//
+    double y_ray;//
     double r_angle;
     int     facing_x;
     int     facing_y;
     double Hx;
     double Hy;
     double Vx;
+	bool	H_or_V;//
     double Vy;
-    double distance;
+    double distance;//distance of ray
 }ray_cast;
 
+typedef	struct	s_pixel
+{
+	int	**SO_Pexel;
+	int	**NO_Pexel;
+	int	**WE_Pexel;
+	int	**EA_Pexel;
+	mlx_image_t	*NO;
+	mlx_image_t	*SO;
+	mlx_image_t	*WE;
+	mlx_image_t	*EA;
+}			t_pixel;
 typedef struct p{
     // char **map;
 	t_cub *data;
@@ -129,7 +138,20 @@ typedef struct p{
     ray_cast *ray;
     double player_x;
     double player_y;
+//------------------------
+	t_pixel		*pixels;
 }t_game;
+
+/*_______________ Textures Parts ____________________________________________________*/
+
+int get_rgba(int r, int g, int b, int a);
+int	get_color_from_distance(double distance);//color draw
+int	get_color_from_texture(t_game *game, int myXX, int myYY);//mait
+void	load_pixels(t_game *game);
+void	save_pixels(t_game *game);
+void	load_images(t_game *game);
+void	draw_wall(int *start_wall, t_game *game, int ray_counter, double line_H, double value);
+
 
 /*_______________________________ Parse Input ______________________________________*/
 

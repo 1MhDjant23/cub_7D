@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felhafid <felhafid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:28:54 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/04 14:12:46 by felhafid         ###   ########.fr       */
+/*   Updated: 2025/03/12 10:53:21 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 // int	get_row(void)
 // {
@@ -91,8 +91,8 @@ int	main(int ac, char **av)
 		printf("$%s$\n", data.maps->map[i++]);
 	// printf("%lu\n", strlen("     1  1111111111111111111111111111111"));
 	// printf("%s\n", data.maps->CE_color);
-		printf("[%d]\n", data.maps->column);
-	printf("[%d]\n", data.maps->rwo);
+	// printf("[%d]\n", data.maps->column);
+	// printf("[%d]\n", data.maps->rwo);
 	// printf("%s\n", data.maps->FL_color);
 	// printf("%s\n", data.maps->N_texture);
 	// printf("%s\n", data.maps->W_texture);
@@ -106,7 +106,7 @@ int	main(int ac, char **av)
 	// printf("%s\n", data.maps->E_texture);
 	printf("\n\n<<<<<<<<<<<< Map is good >>>>>>>>>>>\n\n");
 	game.data = &data;
-	game.mlx =  mlx_init(WIDTH, HEIGHT, "cub", 1);
+	game.mlx =  mlx_init(WIDTH, HEIGHT, "cub", 0);
     init_game_data(&game);
     mlx_key_hook(game.mlx, key_hook, &game);
     mlx_image_to_window(game.mlx, game.img, 0, 0);    

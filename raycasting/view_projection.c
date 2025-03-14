@@ -87,30 +87,58 @@ void find_vertical(t_game *game)
 
 void draw_3d(t_game *game)
 {
+    t_pixel *pixels;
+
+    pixels = malloc(sizeof(t_pixel));
+    if (!pixels)
+        exit(EXIT_FAILURE);
+    game->pixels = pixels;
     int i = 0;
     int j = 0;
     double line_height;
     double distance_windows = (WIDTH / 2) / tan(deg_to_rad(FOV)/2);
     double value;
+    // int start_end[2];///mait
+	save_pixels(game);//mait
+
+    // int count = 0;
+    // exit(1);
     while (i < WIDTH)
     {
         line_height = (TILESIZE/game->ray[i].distance) * distance_windows;
+        // start_end[0] = (HEIGHT / 2) - (line_height / 2);//top wall
+        // start_end[1] = (HEIGHT / 2) + (line_height / 2);//bottom wall
         j = 0;
         value = (HEIGHT - line_height) / 2;
+        int bottom = value + line_height;
         while (j < value && j < HEIGHT)
-        {
-           mlx_put_pixel(game->img, i, j++, 0x7f7f7fff);
-        }
-        while (j <= value + line_height && j < HEIGHT)
-        {
-           mlx_put_pixel(game->img, i, j++, 0xed2100ff);
-        }
+           mlx_put_pixel(game->img, i, j++, get_rgba(161, 238, 255, 255));
+        j = value;
+        draw_wall(&j, game, i, line_height, bottom);
+        // while (j <= value + line_height && j < HEIGHT)
+        // {
+        //     if (game->ray[i].H_or_V == false)
+        //     {
+        //         // color = get_color_from_texture(game, i%TILESIZE, j%TILESIZE);//mait
+        //         // color = get_rgba(game->SO->pixels[count], game->SO->pixels[count + 1], game->SO->pixels[count + 2],game->SO->pixels[count+3]);
+        //         mlx_put_pixel(game->img, i, j, get_rgba(255, 255, 255, 10));//wall
+        //     }
+        //     else if (game->ray[i].H_or_V == true)
+        //         mlx_put_pixel(game->img, i, j, get_rgba(255, 255, 255, 10));//wall
+        //     j++;
+        //     // count += 4;
+        // }
         while (j < HEIGHT)
         {
-           mlx_put_pixel(game->img, i, j++, 255);
+           mlx_put_pixel(game->img, i, j++, get_rgba(255, 125, 44, 255));//ceiling
         }
         i++;
     }
+    // i = 0;
+    // while (i < WIDTH)
+    // {
+    // }
+    
 }
 
 
@@ -126,13 +154,16 @@ void	set_ray_distance(t_game *game, int j)
 		game->ray[j].distance = distance_h;
 		game->ray[j].x_ray = game->ray->Hx;
 		game->ray[j].y_ray = game->ray->Hy;
+        game->ray[j].H_or_V = true;// true because horizontal
 	}
 	else
 	{
 		game->ray[j].distance = distance_v;
 		game->ray[j].x_ray = game->ray->Vx;
 		game->ray[j].y_ray = game->ray->Vy;
-	}
+        game->ray[j].H_or_V = false;// false because verticale
+
+    }
 }
 
 void	field_of_view(t_game *game)
