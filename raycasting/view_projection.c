@@ -98,47 +98,21 @@ void draw_3d(t_game *game)
     double line_height;
     double distance_windows = (WIDTH / 2) / tan(deg_to_rad(FOV)/2);
     double value;
-    // int start_end[2];///mait
-	save_pixels(game);//mait
 
-    // int count = 0;
-    // exit(1);
+	save_pixels(game);//mait
     while (i < WIDTH)
     {
         line_height = (TILESIZE/game->ray[i].distance) * distance_windows;
-        // start_end[0] = (HEIGHT / 2) - (line_height / 2);//top wall
-        // start_end[1] = (HEIGHT / 2) + (line_height / 2);//bottom wall
         j = 0;
         value = (HEIGHT - line_height) / 2;
-        int bottom = value + line_height;
         while (j < value && j < HEIGHT)
-           mlx_put_pixel(game->img, i, j++, get_rgba(161, 238, 255, 255));
-        j = value;
-        draw_wall(&j, game, i, line_height, bottom);
-        // while (j <= value + line_height && j < HEIGHT)
-        // {
-        //     if (game->ray[i].H_or_V == false)
-        //     {
-        //         // color = get_color_from_texture(game, i%TILESIZE, j%TILESIZE);//mait
-        //         // color = get_rgba(game->SO->pixels[count], game->SO->pixels[count + 1], game->SO->pixels[count + 2],game->SO->pixels[count+3]);
-        //         mlx_put_pixel(game->img, i, j, get_rgba(255, 255, 255, 10));//wall
-        //     }
-        //     else if (game->ray[i].H_or_V == true)
-        //         mlx_put_pixel(game->img, i, j, get_rgba(255, 255, 255, 10));//wall
-        //     j++;
-        //     // count += 4;
-        // }
+           mlx_put_pixel(game->img, i, j++, game->data->maps->CE_color);
+        j = value;//for fish-eye effect
+        draw_wall(&j, game, i, line_height);
         while (j < HEIGHT)
-        {
-           mlx_put_pixel(game->img, i, j++, get_rgba(255, 125, 44, 255));//ceiling
-        }
+           mlx_put_pixel(game->img, i, j++, game->data->maps->FL_color);
         i++;
     }
-    // i = 0;
-    // while (i < WIDTH)
-    // {
-    // }
-    
 }
 
 

@@ -6,29 +6,32 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:04:20 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/13 18:16:35 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/14 13:33:07 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	get_rgb(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b);
-}
 
 int	convert_floor_celing_color(char *text_color)
 {
-	(void)text_color;
-	// printf("%s\n", text_color);
-	// char	**rgba;
+	char	**rgba;
+	int		index;
+	int		r;
+	int		g;
+	int		b;
 
-	// rgba = ft_split(text_color, ',');
-	// if (!rgba)
-	// 	exit(write(2, "malloc\n", 7));
-	// printf("#%s\t%s\t%s#\n", rgba[0], rgba[1], rgba[2]);
-	
-	return 0;
+	index = 0;
+	rgba = ft_split(text_color, ',');
+	if (!rgba)
+		exit(write(2, "malloc\n", 7));
+	index += skip_spaces(rgba[0]);
+	r = ft_atoi(&rgba[0][index]);
+	index += skip_spaces(rgba[0]);
+	g = ft_atoi(&rgba[1][index]);
+	index += skip_spaces(rgba[0]);
+	b = ft_atoi(&rgba[2][index]);
+	return (r << 24 | g << 16 | b << 8 | 255);
 }
 
 void	expand_texture(t_cub *data, char *info)

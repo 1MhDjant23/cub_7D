@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:00:37 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/13 22:29:09 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/14 13:50:37 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,60 +117,45 @@ int	get_offset_X(mlx_image_t *img, t_game *game, int count_ray)
 	return (offset);
 }
 
-int	get_offset_Y(mlx_image_t *img, t_game *game, int j, double line_H)
+int	get_offset_Y(mlx_image_t *img, int j, double line_H)
 {
 	int	offset;
-	(void)game;
-	(void)img;
+
 	offset = (j / line_H) * img->height;
 	return (offset);
 }
 
-void	draw_wall(int *start_wall, t_game *game, int ray_counter, double line_H,  double value )
+void	draw_wall(int *start_wall, t_game *game, int ray_counter, double line_H)
 {
-	//first select image
-	int	j;
-	// mlx_image_t	*img = game->pixels->SO;
+	int	top_Wall;
+	int	bottom_Wall;
 	int	offset_x;
 	int	offset_y;
-	// int	top_P = (HEIGHT / 2) - (line_H / 2);
-	j = *start_wall ;
-	offset_y = 0;
+
+	top_Wall = *start_wall;
+	bottom_Wall = top_Wall + line_H;
 	offset_x = get_offset_X(game->pixels->SO, game, ray_counter);
-	while ( *start_wall < value)
+	offset_y = 0;
+	while (*start_wall < bottom_Wall)
 	{
 		if (*start_wall >= HEIGHT)
 			break;
-		offset_y = get_offset_Y(game->pixels->SO, game, *start_wall - j, line_H);
-			// printf("offset_x = %d, offset_y = %d\n", offset_x, offset_y);
-		// if (*start_wall >= HEIGHT)
-		// 	break;
+		offset_y = get_offset_Y(game->pixels->SO, *start_wall - top_Wall, line_H);
 		if ( *start_wall >= 0)
 			mlx_put_pixel(game->img, ray_counter, *start_wall, game->pixels->SO_Pexel[offset_y][offset_x]);
-		// }
-		// else
-		// {
-		// 	break;	
-		// }
-		// start_end[0]++;
 		(*start_wall)++;
-		// j++;
-		//inside each ray
 	}
-	
-	
-
 }
 
-int	get_color_from_distance(double distance)
-{
-	unsigned char	r,g,b;
+// int	get_color_from_distance(double distance, int r, int g, int b)
+// {
+// 	unsigned char	r,g,b;
 
-	if (distance < 1)
-		distance = 1;
-	r = 105 / distance;
-	g = 255 / distance;
-	b = 255 / distance;
+// 	if (distance < 1)
+// 		distance = 1;
+// 	r = 105 / distance;
+// 	g = 255 / distance;
+// 	b = 255 / distance;
 	
-	return (r << 16 | g << 8 | b);
-}
+// 	return (r << 16 | g << 8 | b);
+// }

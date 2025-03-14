@@ -150,7 +150,7 @@ int	get_color_from_texture(t_game *game, int myXX, int myYY);//mait
 void	load_pixels(t_game *game);
 void	save_pixels(t_game *game);
 void	load_images(t_game *game);
-void	draw_wall(int *start_wall, t_game *game, int ray_counter, double line_H, double value);
+void	draw_wall(int *start_wall, t_game *game, int ray_counter, double line_H);
 
 
 /*_______________________________ Parse Input ______________________________________*/
