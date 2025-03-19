@@ -12,7 +12,7 @@
 
 #include "../cub3d.h"
 
-void find_horizontal(t_game *game)
+void find_horizontal(t_game *game, int j)
 {
     double y_steps;
     double x_steps;
@@ -22,13 +22,13 @@ void find_horizontal(t_game *game)
     y_steps = TILESIZE;
     x_raydir = 0;
     y_raydir = 0;
-    facing(game);
-    if (game->ray->facing_y == UP)
+    facing(game, j);
+    if (game->ray[j].facing_y == UP)
     {
         y_raydir = (floor(game->player_y / TILESIZE) * TILESIZE - 0.0001);    
         y_steps = - TILESIZE; 
     }
-    else if(game->ray->facing_y == DOWN) 
+    else if(game->ray[j].facing_y == DOWN) 
         y_raydir = (floor(game->player_y / TILESIZE) * TILESIZE) + TILESIZE; 
    x_raydir = ((y_raydir - game->player_y) / tan(game->ray->r_angle)) + game->player_x;
     x_steps = y_steps / tan(game->ray->r_angle);
@@ -48,7 +48,7 @@ void find_horizontal(t_game *game)
     game->ray->Hy = y_raydir;
 }
 
-void find_vertical(t_game *game)
+void find_vertical(t_game *game, int j)
 {
     double y_steps;
     double x_steps;
@@ -58,10 +58,10 @@ void find_vertical(t_game *game)
     x_steps = TILESIZE;
     x_raydir = 0;
     y_raydir = 0;
-    facing(game);
-    if (game->ray->facing_x  == RIGHT)
+    facing(game, j);
+    if (game->ray[j].facing_x  == RIGHT)
         x_raydir = (floor(game->player_x / TILESIZE) * TILESIZE) + TILESIZE ;
-    else if(game->ray->facing_x  == LEFT)
+    else if(game->ray[j].facing_x  == LEFT)
     {
         x_raydir = ((floor(game->player_x / TILESIZE)) * TILESIZE) - 0.0001;
         x_steps = - TILESIZE; 
@@ -87,27 +87,21 @@ void find_vertical(t_game *game)
 
 void draw_3d(t_game *game)
 {
-    t_pixel *pixels;
-
-    pixels = malloc(sizeof(t_pixel));
-    if (!pixels)
-        exit(EXIT_FAILURE);
-    game->pixels = pixels;
+    
     int i = 0;
     int j = 0;
     double line_height;
     double distance_windows = (WIDTH / 2) / tan(deg_to_rad(FOV)/2);
     double value;
 
-	save_pixels(game);//mait
     while (i < WIDTH)
     {
-        line_height = (TILESIZE/game->ray[i].distance) * distance_windows;
+        line_height = (TILESIZE / game->ray[i].distance) * distance_windows;
         j = 0;
         value = (HEIGHT - line_height) / 2;
         while (j < value && j < HEIGHT)
            mlx_put_pixel(game->img, i, j++, game->data->maps->CE_color);
-        j = value;//for fish-eye effect
+        j = value;//when line height greather than HEIGHT
         draw_wall(&j, game, i, line_height);
         while (j < HEIGHT)
            mlx_put_pixel(game->img, i, j++, game->data->maps->FL_color);
@@ -149,8 +143,8 @@ void	field_of_view(t_game *game)
 	while (j < WIDTH)
 	{
 		game->ray->r_angle = normalize_ray_angle(game->ray->r_angle);
-		find_horizontal(game);
-		find_vertical(game);
+		find_horizontal(game, j);
+		find_vertical(game, j);
 		set_ray_distance(game, j);
 		game->ray[j].distance *= cos(game->ray->r_angle - game->dir_angle);
 		game->ray->r_angle += deg_to_rad(FOV) / WIDTH;
@@ -158,5 +152,3 @@ void	field_of_view(t_game *game)
 	}
 	draw_3d(game);
 }
-
-

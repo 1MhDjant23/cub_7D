@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felhafid <felhafid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 15:54:38 by felhafid          #+#    #+#             */
-/*   Updated: 2025/03/03 22:39:48 by felhafid         ###   ########.fr       */
+/*   Updated: 2025/03/14 17:34:33 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,11 @@ void	init_game_data(t_game *game)
 	x = 0;
 	y = 0;
 	i = 0;
+
 	game->ray = malloc(sizeof(ray_cast) * WIDTH);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	save_pixels(game);//mait
+
 	while (game->data->maps->map[i])
 	{
 		if (player_position(game, x, y, i) == 0)

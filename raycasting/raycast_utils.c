@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felhafid <felhafid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 15:37:13 by felhafid          #+#    #+#             */
-/*   Updated: 2025/03/02 15:51:12 by felhafid         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:13:39 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ void	check_dir(t_game *game)
 		game->dir_angle = M_PI;
 }
 
-void	facing(t_game *game)
+void	facing(t_game *game, int j)
 {
 	if (game->ray->r_angle >= 0 && game->ray->r_angle < M_PI)
-		game->ray->facing_y = DOWN;
+		game->ray[j].facing_y = DOWN;
 	else
-		game->ray->facing_y = UP;
+		game->ray[j].facing_y = UP;
 	if (game->ray->r_angle >= M_PI_2 && game->ray->r_angle < 3 * M_PI_2)
-		game->ray->facing_x = LEFT;
+		game->ray[j].facing_x = LEFT;
 	else
-		game->ray->facing_x = RIGHT;
+		game->ray[j].facing_x = RIGHT;
 }
 
 int	check(t_game *game, double y_ray, double x_ray)

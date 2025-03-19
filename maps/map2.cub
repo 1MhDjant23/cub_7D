@@ -1,10 +1,12 @@
+SO ./textures/bluestone.png
 NO ./textures/eagle.png
-SO ./textures/eagle.png
-WE ./textures/eagle.png
-EA ./textures/eagle.png
+EA ./textures/wall_1.png
+SO ./textures/bluestone.png
+WE ./textures/wood.png
 
-F 255,         100,0
-C 225,30,0
+EA ./textures/wall_1.png
+F 222, 219, 185
+C 220, 245, 169
         111111111111111111111111
         1000000000110000000000001
         101100000001000000000S001

@@ -23,7 +23,7 @@
 #include <fcntl.h>
 #include <math.h>
 #include "/Users/mait-taj/Desktop/MLX42/include/MLX42/MLX42.h"
-#include "parsing/libft/libft.h"
+#include "libft/libft.h"
 #include "parsing/get_next_line/get_next_line.h"
 
 /*$$$$$$$$$$$$$$$$$$$$$ macros $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
@@ -113,8 +113,8 @@ typedef struct s_ray{
     double Hx;
     double Hy;
     double Vx;
-	bool	H_or_V;//
     double Vy;
+	bool	H_or_V;//
     double distance;//distance of ray
 }ray_cast;
 
@@ -143,7 +143,7 @@ typedef struct p{
 }t_game;
 
 /*_______________ Textures Parts ____________________________________________________*/
-
+int	check_for_walls(t_game *game, double nx, double ny);
 int get_rgba(int r, int g, int b, int a);
 int	get_color_from_distance(double distance);//color draw
 int	get_color_from_texture(t_game *game, int myXX, int myYY);//mait
@@ -151,7 +151,7 @@ void	load_pixels(t_game *game);
 void	save_pixels(t_game *game);
 void	load_images(t_game *game);
 void	draw_wall(int *start_wall, t_game *game, int ray_counter, double line_H);
-
+int	free_struct(t_cub *data);
 
 /*_______________________________ Parse Input ______________________________________*/
 
@@ -161,7 +161,8 @@ void	print_position(t_stat position);
 /*__________ Utils ______________ Utils _________________ Utils ____________________*/
 
 size_t	ft_compare(char *s1, char *s2);
-void	init_data(t_cub *data, t_help *help, t_map *maps, t_stat stat);
+void	init_data(t_cub *data);
+void	init_data_2(t_help *help, t_map *maps, t_stat stat);
 void	before_filling(t_cub *data);
 int		coun_line(char **map);
 // int		coun_line(char *line);
@@ -170,7 +171,7 @@ int		coun_line(char **map);
 // t_stat	choise_stat(int n);
 int		skip_spaces(char *str);
 // void	extr_val_of_elem(char *elemnt, t_help *help);
-t_filling	*create_node(char *content);
+t_filling	*create_node(t_cub *data, char *content);
 // bool	check_empty_line(char *line);
 void	add_node(t_filling **head, t_filling *new);
 void	first_check_of_elem(t_cub *data);
@@ -200,6 +201,7 @@ void	print_err(t_stat stat);
 void	cannot_find(char *str);
 void	elem_not_found(char *str);
 int		print_errline(char *i_to_a, char *s1);
+int		err(char *str);
 
 /*______________________________ Free Data ___________________________________________*/
 
@@ -208,15 +210,16 @@ void	free_map_ele(t_map *maps);
 void	free_all_data(t_cub *data);
 
 /*______________________________Recasting Part ___________________________________________*/
-void	key_hook(mlx_key_data_t keydata, void *param);
+// void	key_hook(mlx_key_data_t keydata, void *param);
+void	key_hook( void *param);
 double	deg_to_rad(double angle);
 double	normalize_ray_angle(double angle);
 void	check_dir(t_game *game);
-void	facing(t_game *game);
+void	facing(t_game *game, int j);
 int		check(t_game *game, double y_ray, double x_ray);
 void	init_game_data(t_game *game);
 void	field_of_view(t_game *game);
-void	key_hook(mlx_key_data_t keydata, void *param);
+// void	key_hook(mlx_key_data_t keydata, void *param);
 void	render_view(t_game *game);
 void	dda(t_game *game , int color, double  x1, double y1);
 #endif

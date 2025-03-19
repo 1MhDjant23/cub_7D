@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:35:59 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/13 16:34:43 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/16 15:30:58 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,20 @@ size_t	ft_compare(char *s1, char *s2)
 	return (0);
 }
 
-void	init_data(t_cub *data, t_help *help, t_map *maps , t_stat stat)
+void	init_data(t_cub *data)
 {
-	if (stat == DATA)
-	{
-		data->file = NULL;
-		data->map = NULL;
-		data->line_m = NULL;
-		data->help = NULL;
-		data->begin_map = 0;
-		data->count_elem = 0;
-		data->end_map = 0;
-		data->player = 0;
-	}
+	data->file = NULL;
+	data->map = NULL;
+	data->line_m = NULL;
+	data->help = NULL;
+	data->begin_map = 0;
+	data->count_elem = 0;
+	data->end_map = 0;
+	data->player = 0;
+}
+
+void	init_data_2(t_help *help, t_map *maps , t_stat stat)
+{
 	if (stat == HELP)
 	{
 		help->i = 0;
@@ -53,21 +54,19 @@ void	init_data(t_cub *data, t_help *help, t_map *maps , t_stat stat)
 		help->SO = false;
 		help->WE = false;
 		help->EA = false;
+		return ;
 	}
-	if (stat == MAP)
-	{
-		maps->map = NULL;
-		maps->CE_color = 0;
-		maps->FL_color = 0;
-		maps->N_texture = NULL;
-		maps->W_texture = NULL;
-		maps->S_texture = NULL;
-		maps->E_texture = NULL;
-		maps->pl_xx = 0;
-		maps->pl_yy = 0;
-		maps->rwo = 0;
-		maps->column = 0;
-	}
+	maps->map = NULL;
+	maps->CE_color = 0;
+	maps->FL_color = 0;
+	maps->N_texture = NULL;
+	maps->W_texture = NULL;
+	maps->S_texture = NULL;
+	maps->E_texture = NULL;
+	maps->pl_xx = 0;
+	maps->pl_yy = 0;
+	maps->rwo = 0;
+	maps->column = 0;
 }
 
 void	before_filling(t_cub *data)
@@ -80,10 +79,11 @@ void	before_filling(t_cub *data)
 	if (!help->tmp || help->tmp[0] == '\0')
 	{
 		free(help->tmp);
+		help->tmp = NULL;
 		print_err(EMPTY);
 		exit(EXIT_FAILURE);
 	}
-	fill = create_node(help->tmp);
+	fill = create_node(data, help->tmp);
 	data->filling = fill;
 	while (true)
 	{
@@ -91,9 +91,8 @@ void	before_filling(t_cub *data)
 		help->tmp = get_next_line(help->i);
 		if (!help->tmp)
 			break ;
-		add_node(&fill, create_node(help->tmp));
+		add_node(&fill, create_node(data, help->tmp));
 	}
-	close(data->help->i);
 }
 
 int	skip_spaces(char *str)

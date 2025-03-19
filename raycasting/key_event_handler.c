@@ -3,38 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   key_event_handler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felhafid <felhafid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:44:17 by felhafid          #+#    #+#             */
-/*   Updated: 2025/03/03 21:11:04 by felhafid         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:22:50 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	player_move(mlx_key_data_t keydata, t_game *game, double *nx, double *ny)
-{
-	if (keydata.key == MLX_KEY_A && keydata.action)
-    {
-        (*nx) += SPEED * cos(game->dir_angle - M_PI_2);
-        (*ny) += SPEED * sin(game->dir_angle - M_PI_2);
-    }
-    else if (keydata.key == MLX_KEY_D && keydata.action)
-    {
-        (*nx) -= SPEED * cos(game->dir_angle - M_PI_2);
-        (*ny) -= SPEED * sin(game->dir_angle - M_PI_2);
-    }
-    else if (keydata.key == MLX_KEY_W && keydata.action)
-    {
-        (*nx) += SPEED * cos(game->dir_angle);
-        (*ny) += SPEED * sin(game->dir_angle);
-    }
-    else if (keydata.key == MLX_KEY_S && keydata.action)
-    {
-    	(*nx) -= SPEED * cos(game->dir_angle);
-        (*ny) -= SPEED * sin(game->dir_angle);
-    }
-}
+// void	player_move(t_game *game, double *nx, double *ny)
+// {
+// 	if (keydata.key == MLX_KEY_A && keydata.action)
+//     {
+//         (*nx) += SPEED * cos(game->dir_angle - M_PI_2);
+//         (*ny) += SPEED * sin(game->dir_angle - M_PI_2);
+//     }
+//     else if (keydata.key == MLX_KEY_D && keydata.action)
+//     {
+//         (*nx) -= SPEED * cos(game->dir_angle - M_PI_2);
+//         (*ny) -= SPEED * sin(game->dir_angle - M_PI_2);
+//     }
+//     else if (keydata.key == MLX_KEY_W && keydata.action)
+//     {
+//         (*nx) += SPEED * cos(game->dir_angle);
+//         (*ny) += SPEED * sin(game->dir_angle);
+//     }
+//     else if (keydata.key == MLX_KEY_S && keydata.action)
+//     {
+//     	(*nx) -= SPEED * cos(game->dir_angle);
+//         (*ny) -= SPEED * sin(game->dir_angle);
+//     }
+// }
 
 int	check_wall(t_game *game, double nx, double ny, int i)
 {
@@ -78,7 +78,7 @@ int	check_for_walls(t_game *game, double nx, double ny)
 	return (0);
 }
 
-void	key_hook(mlx_key_data_t keydata, void *param)
+void	key_hook( void *param)
 {
     t_game *game;
     game = (t_game *)param;
@@ -87,9 +87,31 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	
     nx = game->player_x;
     ny = game->player_y;
-    if (keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_W)
+    if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+        exit(0);
+    if (mlx_is_key_down(game->mlx, MLX_KEY_A) || mlx_is_key_down(game->mlx, MLX_KEY_S) || mlx_is_key_down(game->mlx, MLX_KEY_D) || mlx_is_key_down(game->mlx, MLX_KEY_W))
     {
-		player_move(keydata, game, &nx, &ny);
+		// player_move(keydata, game, &nx, &ny);
+        if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+        {
+            (nx) += SPEED * cos(game->dir_angle - M_PI_2);
+            (ny) += SPEED * sin(game->dir_angle - M_PI_2);
+        }
+        else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+        {
+            (nx) -= SPEED * cos(game->dir_angle - M_PI_2);
+            (ny) -= SPEED * sin(game->dir_angle - M_PI_2);
+        }
+        else if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+        {
+            (nx) += SPEED * cos(game->dir_angle);
+            (ny) += SPEED * sin(game->dir_angle);
+        }
+        else if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+        {
+            (nx) -= SPEED * cos(game->dir_angle);
+            (ny) -= SPEED * sin(game->dir_angle);
+        }
         if (check_for_walls(game, nx, ny) == -1)
             find = -1;
         if ((game->data->maps->map[(int)ny / TILESIZE][(int)nx / TILESIZE] != '1') && find != -1) 
@@ -100,22 +122,19 @@ void	key_hook(mlx_key_data_t keydata, void *param)
             render_view(game);
         }
     }
-    else if (keydata.key == MLX_KEY_RIGHT && keydata.action)
+    else if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
     {
         game->dir_angle += 0.1;
         game->dir_angle = normalize_ray_angle(game->dir_angle);
         mlx_delete_image(game->mlx, game->img);
         render_view(game);
     }
-    else if (keydata.key == MLX_KEY_LEFT && keydata.action)
+    else if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
     {
         game->dir_angle -=0.1;
         game->dir_angle = normalize_ray_angle(game->dir_angle);
         mlx_delete_image(game->mlx, game->img);
         render_view(game);
     }
-     if (keydata.key == MLX_KEY_ESCAPE)
-    {
-        exit(0);
-    }
+
 }

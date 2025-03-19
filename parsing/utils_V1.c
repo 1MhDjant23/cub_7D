@@ -6,43 +6,13 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:41:21 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/06 14:53:50 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/18 13:15:08 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-t_filling	*create_node(char *content)
-{
-	t_filling	*node;
 
-	node = malloc(sizeof(t_filling));
-	if (!node)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-	node->line = ft_strdup(content);
-	node->next = NULL;
-	return (node);
-}
-
-void	add_node(t_filling **head, t_filling *new)
-{
-	t_filling	*temp;
-
-	if (!head || !new)
-		return ;
-	if (!(*head))
-	{
-		*head = new;
-		return ;
-	}
-	temp = *head;
-	while (temp && temp->next)
-		temp = temp->next;
-	temp->next = new;		
-}
 
 char	*just_path(char *line, t_help *help)
 {
@@ -93,6 +63,16 @@ char	*join_obj_with_path(char *s1, char *s2)
 	new[count] = '\0';
 	return (new);
 }
+
+void	exit_here(t_game *data)
+{
+	(void)data;
+	// free_struct(data);
+	// free(data->help->tmp);
+	// free_map_ele(data->maps);
+	// exit(write(2, "too many element in the map\n", 28));
+}
+
 void	first_check_of_elem(t_cub *data)
 {
 	t_filling	*mp;
@@ -100,31 +80,26 @@ void	first_check_of_elem(t_cub *data)
 	int			i;
 
 	i = 1;
-	init_data(NULL, data->help, NULL, HELP);
+	init_data_2(data->help, NULL, HELP);
 	mp = data->filling;
 	while (mp)
 	{
+		if (data->count_elem > 6)
+			exit(1);
+			// exit_here(data);
 		if (find_all_elem(data->help) == true)
 			break ;
-		if (data->count_elem > 6)
-			exit(write(2, "too many element in the map\n", 28));
-		if (check_line_element(data->help, mp->line, data) == true && without_info(mp->line) == false)
-		{
-			write(2, "Error\nInvalid character(or line) between element (line: `", 57);
-			write(2, ft_itoa(i), ft_strlen(ft_itoa(i)));
-			write(2, "')\n", 3);
-			exit(1);
-		}
+		if (check_line_element(data->help, mp->line, data) == true \
+			&& without_info(mp->line) == false)
+			exit(print_errline(ft_itoa(i), "Error\nInvalid character(or line) between element "));
 		else if (just_empty_line(mp->line) == false)
 		{
 			new = extract_element(just_path(mp->line, data->help), i, mp->line, data->help->x);
 			mp->line = join_obj_with_path(new, mp->line);
 			if (ft_strlen(mp->line) <= 2 || !new)
 			{
-				write(2, "Error\n(line: `", 14);
-				write(2, ft_itoa(i), ft_strlen(ft_itoa(i)));
-				write(2, "') element without specific informations\n", 41);
-				exit(1);
+				print_errline(ft_itoa(i), NULL);
+				exit(err("') element without specific informations\n"));
 			}
 		}
 		i++;
@@ -254,7 +229,7 @@ void	all_element_is_good(t_cub *data)
 
 	help = data->help;
 	mp = data->filling;
-	init_data(NULL, data->help, NULL, HELP);
+	init_data_2(data->help, NULL, HELP);
 	while (help->i < data->begin_map - 1)
 	{
 		if (just_empty_line(mp->line) == false)
@@ -267,134 +242,7 @@ void	all_element_is_good(t_cub *data)
 	}
 }
 
-void	is_rgb(char *line, t_help *help)
-{
-	char	**spl;
-	int		i;
-	int		res;
-
-	i = 0;	
-	spl = ft_split(line, ',');
-	if (!spl)
-		exit(1);
-	while (spl[i])
-	{
-		res = ft_atoi(spl[i++]);
-		if (res > 255 || res < 0)
-		{
-			write(2, "Error\n(line: `", 14);
-			write(2, ft_itoa(help->i + 1), ft_strlen(ft_itoa(help->i + 1)));
-			write(2, "'): R,G,B colors must be in range [0,255]\n", 42);
-			exit(1);
-		}
-	}
-	free_d_arr(spl);
-}
-
-void	argu_ment(char *line, char **splt, int index)
-{
-	int	i;
-(void)splt;
-	i = 0;
-	i += skip_spaces(line);
-
-	if (line[i] == '\0' || line[i] == '\n')
-	{
-		write(2, "Error\n(line: `", 14);
-		write(2, ft_itoa(index), ft_strlen(ft_itoa(index)));
-		exit(write(2, "');Set valid R,G,B color\n", 25));
-	}
-	while (line[i] && line[i] != ' ')
-		i++;
-	if (line[i] && line[i] == ' ')
-	{
-		i += skip_spaces(&line[i]);
-		if (line[i] && line[i] != '\n')
-		{
-			write(2, "Error\n(line: `", 14);
-			write(2, ft_itoa(index), ft_strlen(ft_itoa(index)));
-			exit(write(2, "');space between digit encountered\n", 35));
-		}
-	}
-}
-
-char	*valid_arg_color(char *line, int index, int i)
-{
-	int		ver;
-	char	**spl;
-
-	ver = 0;
-	i = 0;
-	i += skip_spaces(line);
-	if (line[i] == ',')
-		exit(write(2, "Error\nSyntax error; R,G,B color\n", 32));
-	while (line[i])
-	{
-		if (( line[i] == '+' && ft_isdigit(line[i + 1])) || (line[i] != ' ' && line[i] != ',' && line[i] != '\n' && !ft_isdigit(line[i])))
-			exit(write(2, "Error\nR,G,B color must contain only digit\n", 42));
-		if (line[i] == ',' && line[i + 1] == ',')
-			break ;
-		if (line[i++] == ',')
-			ver++;
-	}
-	if (ver != 2)
-	{
-		write(2, "Error\nToo many comma `,' in line (", 34);
-		write(2, ft_itoa(index), ft_strlen(ft_itoa(index)));
-		exit(write(2, ")!.\n", 4));
-	}
-	spl = ft_split(line, ','); // hereeeee e e e e e e e e ee  e e e e e e e 
-	i = 0;
-	while (spl[i])
-		argu_ment(spl[i++], spl, index);
-	free_d_arr(spl);
-	return (&line[1]);
-}
 
 
-void	color_valid(t_help *help , char *line)
-{
-	int	i;
 
-	i = 1;
-	
-	if (line[0] && (line[0] == 'C' || line[0] == 'F'))
-	{
-		i += skip_spaces(&line[i]);
-		is_rgb(&line[1], help);
-	}
-}
 
-void	extensionOfTextures(char *path)
-{
-	char	*tmp;
-	if (!path)
-		return ;
-	tmp = ft_strrchr(path, '.');
-	if (!tmp)
-		exit(write(2, "Error\npath of textures must be a type of `.PNG`\n", 48));
-	if (ft_compare(tmp, ".png") == 0)
-		return ;
-	exit(write(2, "Error\npath of textures must be a type of `.PNG`\n", 48));
-}
-
-void	path_if_exist(t_cub *data, char *line)
-{
-	char	*path;
-
-	path = NULL;
-	if (line[0] == 'E' || line[0] == 'N' || line[0] == 'S' || line[0] == 'W')
-		path = &line[2];
-	else
-		return ;
-	extensionOfTextures(path);
-	data->help->x = open(path, O_RDONLY);
-	if (data->help->x == -1)
-	{
-		write(2, "Error\n(line `", 13);
-		write(2 , ft_itoa(data->help->i + 1), ft_strlen(ft_itoa(data->help->i)));
-		write(2, "') enter a valid texture!.\n", 27);
-		exit(1);
-	}
-	close(data->help->x);
-}

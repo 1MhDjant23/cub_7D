@@ -6,11 +6,26 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:51:00 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/13 16:35:12 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/16 15:22:11 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	free_struct(t_cub *data)
+{
+	t_filling	*temp;
+
+	while (data->filling)
+	{
+		temp = data->filling;
+		free(data->filling->line);
+		data->filling->line = NULL;
+		data->filling = data->filling->next;
+		free(temp);
+	}
+	return (1);
+}
 
 void	free_d_arr(char **str)
 {

@@ -1,7 +1,7 @@
 NO ./textures/eagle.png
-SO ./textures/eagle.png
-WE ./textures/eagle.png
-EA ./textures/eagle.png
+SO ./textures/bluestone.png
+WE ./textures/wood.png
+EA ./textures/wall_1.png
 
 F 220, 100,0
 C 225,30,0

@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 08:30:39 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/05 09:54:23 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:08:27 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ void	check_wall_of_map(t_cub *data)
 
 	hl = data->help;
 	// init_data(NULL, NULL, data->maps, MAP);
-	init_data(NULL, data->help, NULL, HELP);
+	init_data_2(data->help, NULL, HELP);
 	if (!data->filling)
 	{
 		write(2, "can't find map\n", 15);
