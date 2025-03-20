@@ -22,14 +22,14 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <math.h>
-#include "/Users/mait-taj/Desktop/MLX42/include/MLX42/MLX42.h"
+#include "../../MLX42/include/MLX42/MLX42.h"
 #include "libft/libft.h"
 #include "parsing/get_next_line/get_next_line.h"
 
 /*$$$$$$$$$$$$$$$$$$$$$ macros $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*/
-#define TILESIZE 50
-#define WIDTH 1800//2560//1800
-#define HEIGHT 900//1440
+#define TILESIZE 25
+#define WIDTH 1500//2560//1800
+#define HEIGHT 1400//1440
 #define FOV 60
 #define UP 1
 #define DOWN 2
@@ -221,5 +221,6 @@ void	init_game_data(t_game *game);
 void	field_of_view(t_game *game);
 // void	key_hook(mlx_key_data_t keydata, void *param);
 void	render_view(t_game *game);
-void	dda(t_game *game , int color, double  x1, double y1);
+// void	dda(t_game *game , int color, double  x1, double y1);
+void	dda(t_game *game, double x1, double y1);
 #endif

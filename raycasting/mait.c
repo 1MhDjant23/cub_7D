@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mait.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: felhafid <felhafid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:00:37 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/18 14:54:10 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/19 19:23:49 by felhafid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,30 @@ mlx_texture_t	*load_textures(char *texturePNG)
 
 void	load_images(t_game *game)
 {
-
-	game->pixels->EA = mlx_texture_to_image(game->mlx, load_textures(game->data->maps->E_texture));
+	game->pixels->EA = mlx_texture_to_image(game->mlx, \
+		load_textures(game->data->maps->E_texture));
 	if (!game->pixels->EA)
 	{
 		write(2, "Faillure to load PNG\n", 21);
 		exit(EXIT_FAILURE);
 	}
 	// printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
-	game->pixels->NO = mlx_texture_to_image(game->mlx, load_textures(game->data->maps->N_texture));
+	game->pixels->NO = mlx_texture_to_image(game->mlx, \
+		load_textures(game->data->maps->N_texture));
 	if (!game->pixels->NO)
 	{
 		write(2, "Faillure to load PNG\n", 21);
 		exit(EXIT_FAILURE);
 	}
-	game->pixels->WE = mlx_texture_to_image(game->mlx, load_textures(game->data->maps->W_texture));
+	game->pixels->WE = mlx_texture_to_image(game->mlx, \
+		load_textures(game->data->maps->W_texture));
 	if (!game->pixels->WE)
 	{
 		write(2, "Faillure to load PNG\n", 21);
 		exit(EXIT_FAILURE);
 	}
-	game->pixels->SO = mlx_texture_to_image(game->mlx, load_textures(game->data->maps->S_texture));
+	game->pixels->SO = mlx_texture_to_image(game->mlx, \
+		load_textures(game->data->maps->S_texture));
 	if (!game->pixels->SO)
 	{
 		write(2, "Faillure to load PNG\n", 21);
@@ -56,11 +59,10 @@ void	load_images(t_game *game)
 
 int	**get_pexels(mlx_image_t *img)
 {
-	int	**pex;
+	int		**pex;
 	size_t	i;
 	size_t	j;
 	size_t	count;
-
 
 	count = 0;
 	i = 0;
@@ -77,7 +79,8 @@ int	**get_pexels(mlx_image_t *img)
 			exit(write(2, "malloc\n", 7));
 		while (j < img->width)
 		{
-			pex[i][j++] = get_rgba(img->pixels[count], img->pixels[count + 1], img->pixels[count + 2], img->pixels[count + 3]);
+			pex[i][j++] = get_rgba(img->pixels[count], img->pixels[count + 1],\
+				img->pixels[count + 2], img->pixels[count + 3]);
 			count += 4;
 		}
 		i++;
@@ -85,11 +88,10 @@ int	**get_pexels(mlx_image_t *img)
 	return (pex);
 }
 
-int get_rgba(int r, int g, int b, int a)
+int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8| a);
 }
-
 
 void	save_pixels(t_game *game)
 {
@@ -99,7 +101,6 @@ void	save_pixels(t_game *game)
 	i = -1;
 	j = -1;
     load_images(game);//mait
-	
 	game->pixels->NO_Pexel = get_pexels(game->pixels->NO);
 	game->pixels->WE_Pexel = get_pexels(game->pixels->WE);
 	game->pixels->EA_Pexel = get_pexels(game->pixels->EA);

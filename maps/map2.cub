@@ -1,10 +1,8 @@
 SO ./textures/bluestone.png
 NO ./textures/eagle.png
 EA ./textures/wall_1.png
-SO ./textures/bluestone.png
 WE ./textures/wood.png
 
-EA ./textures/wall_1.png
 F 222, 219, 185
 C 220, 245, 169
         111111111111111111111111
