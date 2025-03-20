@@ -6,7 +6,7 @@
 /*   By: felhafid <felhafid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:44:17 by felhafid          #+#    #+#             */
-/*   Updated: 2025/03/19 19:20:42 by felhafid         ###   ########.fr       */
+/*   Updated: 2025/03/20 20:18:06 by felhafid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ bool	angle_rotation(t_game *game)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 	{
-		game->dir_angle += 0.1;
+		game->dir_angle += deg_to_rad(5);
 		game->dir_angle = normalize_ray_angle(game->dir_angle);
 		return (true);
 	}
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 	{
-		game->dir_angle -= 0.1;
+		game->dir_angle -= deg_to_rad(5);
 		game->dir_angle = normalize_ray_angle(game->dir_angle);
 		return (true);
 	}

@@ -216,7 +216,7 @@ double	deg_to_rad(double angle);
 double	normalize_ray_angle(double angle);
 void	check_dir(t_game *game);
 void	facing(t_game *game, int j);
-int		check(t_game *game, double y_ray, double x_ray);
+// int		check(t_game *game, double y_ray, double x_ray);
 void	init_game_data(t_game *game);
 void	field_of_view(t_game *game);
 // void	key_hook(mlx_key_data_t keydata, void *param);

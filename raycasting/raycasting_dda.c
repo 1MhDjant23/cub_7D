@@ -6,7 +6,7 @@
 /*   By: felhafid <felhafid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:19:16 by felhafid          #+#    #+#             */
-/*   Updated: 2025/03/19 19:24:21 by felhafid         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:32:56 by felhafid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	draw_line_segment(t_game *game, double x1, double y1, int steps)
 	dy = game->player_y;
 	while (i <= steps)
 	{
-		if (dx < 0 || dy < 0 || dx >= WIDTH || dy >= HEIGHT)
+		if (dx < 0 || dy < 0)
 			break ;
 		dx += (x1 - game->player_x / steps);
 		dy += (y1 - game->player_y / steps); 
