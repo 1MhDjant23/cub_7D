@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:56:36 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/01/05 12:44:24 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:32:56 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	j = 0;
 	if (!s1)
-		return ((char*)s2);
+		return ((char *)s2);
 	len = ft_strlen(s1) + ft_strlen(s2);
 	s_concat = malloc((len + 1) * sizeof(char));
 	if (s_concat == NULL)
@@ -34,7 +34,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	while (s2[j])
 		s_concat[i++] = s2[j++];
-	free((char*)s1);
 	s_concat[i] = '\0';
 	return (s_concat);
 }

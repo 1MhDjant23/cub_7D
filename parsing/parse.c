@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felhafid <felhafid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:30:42 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/19 23:09:47 by felhafid         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:29:56 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,13 @@ void	set_large_line(t_map *maps)
 {
 	size_t	i;
 	size_t	curent;
-	char	*str;
-	str = maps->map[0];
+
 	i = 1;
 	curent = ft_strlen(maps->map[0]);
 	while (maps->map[i])
 	{
 		if (ft_strlen(maps->map[i]) > curent)
 		{
-			str = maps->map[i];
 			curent = ft_strlen(maps->map[i]);
 		}
 		i++;
@@ -58,42 +56,38 @@ void	set_large_line(t_map *maps)
 	maps->rwo = curent - 1;
 }
 
-void	set_map(t_cub *data)
+void	set_part_one(t_cub *data)
 {
 	data->help->i = open(data->file, O_RDONLY, 0644);
 	if (data->help->i == -1)
 	{
-		perror("open");// no alloc at this statement	
+		perror("open");
 		exit(EXIT_FAILURE);
 	}
-	// exit(1);
 	init_data_2(NULL, data->maps, MAP);
-	before_filling(data);// reading into the file, and store map in a char*.
+	before_filling(data);
 	close(data->help->i);
 	first_check_of_elem(data);
 	if (!data->filling)
-		exit(write(2, "Error\nmap not found\n", 20));
+	{
+		write(2, "Error\nmap not found\n", 20);
+		exit(free_struct(data));
+	}
 	all_element_is_good(data);
 	set_element(data);
-	check_wall_of_map(data);
-	set_large_line(data->maps);
-	free_d_arr(data->maps->map);
-	data->maps->map = NULL;
-	reset_map(data);
-	insid_map(data, data->help->x);
 }
 
 bool	first_step_to_map(t_cub *data)
 {
 	t_help	help;
-	t_map	*maps;
 
 	init_data_2(&help, NULL, HELP);
 	data->help = &help;
-	maps = malloc(sizeof(t_map));
-	if (!maps)
-		exit(EXIT_FAILURE);
-	data->maps = maps;//start map checking
-	set_map(data);
+	set_part_one(data);
+	check_wall_of_map(data);
+	set_large_line(data->maps);
+	free_d_arr(data->maps->map);
+	reset_map(data);
+	insid_map(data, data->help->x);
 	return (false);
 }

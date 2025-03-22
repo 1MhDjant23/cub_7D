@@ -6,14 +6,64 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:04:20 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/15 15:05:18 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/22 15:02:32 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+void	before_filling(t_cub *data)
+{
+	t_help		*help;
+	t_filling	*fill;
 
-int	convert_floor_celing_color(char *text_color)
+	help = data->help;
+	help->tmp = get_next_line(help->i);
+	if (!help->tmp || help->tmp[0] == '\0')
+	{
+		print_err(EMPTY);
+		exit(EXIT_FAILURE);
+	}
+	fill = create_node(data, help->tmp);
+	data->filling = fill;
+	while (true)
+	{
+		free(help->tmp);
+		help->tmp = get_next_line(help->i);
+		if (!help->tmp)
+			break ;
+		add_node(&fill, create_node(data, help->tmp));
+	}
+}
+
+void	set_element(t_cub *data)
+{
+	t_filling	*mp;
+	t_filling	*prev;
+
+	mp = data->filling;
+	data->help->x = 0;
+	while (mp && mp->line && (data->help->x < data->begin_map - 1 \
+		|| just_empty_line(mp->line) == true))
+	{
+		if (just_empty_line(mp->line) == false)
+			expand_texture(data, mp->line);
+		prev = mp;
+		mp = mp->next;
+		free(prev->line);
+		free(prev);
+		prev = NULL;
+		if (!mp)
+		{
+			data->filling = NULL;
+			return ;
+		}
+		(data->help->x)++;
+	}
+	data->filling = mp;
+}
+
+int	convert_floor_celing_color(t_cub *data, char *text_color)
 {
 	char	**rgba;
 	int		index;
@@ -24,13 +74,17 @@ int	convert_floor_celing_color(char *text_color)
 	index = 0;
 	rgba = ft_split(text_color, ',');
 	if (!rgba)
-		exit(write(2, "malloc\n", 7));
+	{
+		write(2, "malloc\n", 7);
+		exit(free_struct(data));
+	}
 	index += skip_spaces(rgba[0]);
 	r = ft_atoi(&rgba[0][index]);
 	index += skip_spaces(rgba[0]);
 	g = ft_atoi(&rgba[1][index]);
 	index += skip_spaces(rgba[0]);
 	b = ft_atoi(&rgba[2][index]);
+	free_d_arr(rgba);
 	return (r << 24 | g << 16 | b << 8 | 255);
 }
 
@@ -47,117 +101,17 @@ void	expand_texture(t_cub *data, char *info)
 	if (info[0] && info[0] == 'E')
 		data->maps->E_texture = ft_strdup(&info[2]);
 	if (info[0] && info[0] == 'C')
-		data->maps->CE_color = convert_floor_celing_color(&info[1]);
+		data->maps->CE_color = convert_floor_celing_color(data, &info[1]);
 	if (info[0] && info[0] == 'F')
-		data->maps->FL_color = convert_floor_celing_color(&info[1]);
+		data->maps->FL_color = convert_floor_celing_color(data, &info[1]);
 }
 
-
-// char	*str_for_check(t_stat stat)
-// {
-// 	char	*str;
-
-// 	str = NULL;
-// 	if (stat == NORTH)
-// 		str = "NO ";
-// 	else if (stat == SOUTH)
-// 		str = "SO ";
-// 	else if (stat == WEST)
-// 		str = "WE ";
-// 	else if (stat == EAST)
-// 		str = "EA ";
-// 	else if (stat == FLOOR)
-// 		str = "F ";
-// 	else if (stat == CEILING)
-// 		str = "C ";
-// 	return (str);
-// }
-
-// void	extr_val_of_elem(char *elemnt, t_help *help)
-// {
-// 	int	i;
-// 	int	count;
-// 	int	keep;
-
-// 	count = 0;
-// 	i = 0;
-// 	i += skip_spaces(elemnt);
-// 	keep = i;	
-// 	while (elemnt[i] && elemnt[i] != '\n')
-// 	{
-// 		i++;
-// 		count++;	
-// 	}
-// 	if (elemnt[i - 1] == ' ')
-// 	{
-// 		i--;
-// 		while (elemnt[i] && elemnt[i] == ' ')
-// 		{
-// 			i--;
-// 			count--;
-// 		}
-// 	}
-// 	if (count < 0)
-// 		return ;
-// 	help->tmp = malloc(sizeof(char) * count + 1);
-// 	if (!help->tmp)
-// 		exit(EXIT_FAILURE);
-// 	i = 0;
-// 	while (elemnt[keep] && elemnt[keep] != '\n' && i < count)
-// 		help->tmp[i++] = elemnt[keep++];
-// 	help->tmp[i] = '\0';
-// }
-
-// void	check_texture_color(t_cub *data, t_stat stat, int index)
-// {
-// 	char	*st;
-
-// 	st = str_str(data->line_m, str_for_check(stat), data->help);
-// 	if (st == NULL)
-// 	{
-// 		elem_not_found(str_for_check(stat));
-// 		free_map_ele(data->maps);
-// 		free_all_data(data);
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	if (index == 0)
-// 		data->maps->N_texture = ft_strdup(data->help->tmp);
-// 	else if (index == 1)
-// 		data->maps->S_texture = ft_strdup(data->help->tmp);
-// 	else if (index == 2)
-// 		data->maps->W_texture = ft_strdup(data->help->tmp);
-// 	else if (index == 3)
-// 		data->maps->E_texture = ft_strdup(data->help->tmp);
-// 	else if (index == 4)
-// 		data->maps->FL_color = ft_strdup(data->help->tmp);
-// 	else if (index == 5)
-// 		data->maps->CE_color = ft_strdup(data->help->tmp);
-// }
-
-// void    check_necessary_elem(t_cub *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < 6)
-// 	{
-// 		init_data(NULL, data->help, NULL, HELP);	
-// 		check_texture_color(data, choise_stat(i), i);
-// 		if (data->help->tmp == NULL)
-// 		{
-// 			cannot_find(str_for_check(choise_stat(i)));
-// 			free_map_ele(data->maps);
-// 			free_all_data(data);
-// 			exit(EXIT_FAILURE);
-// 		}
-// 		free(data->help->tmp);
-// 		i++;
-// 	}
-// 	// ft_strtrim()
-// 	printf("NORTH is [%s]\n", data->maps->N_texture);
-// 	printf("SOUTH is [%s]\n", data->maps->S_texture);
-// 	printf("WEST is [%s]\n", data->maps->W_texture);
-// 	printf("EAST is [%s]\n", data->maps->E_texture);
-// 	printf("FLOOR is [%s]\n", data->maps->FL_color);
-// 	printf("CEILING is [%s]\n", data->maps->CE_color);
-// }
+bool	find_all_elem(t_help *help)
+{
+	if (help->C == true && help->EA == true && help->F == true
+		&& help->NO == true && help->SO == true && help->WE == true)
+	{
+		return (true);
+	}
+	return (false);
+}

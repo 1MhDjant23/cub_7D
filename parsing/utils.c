@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:35:59 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/16 15:30:58 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/22 15:05:59 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_compare(char *s1, char *s2)
 {
-    size_t	i;
+	size_t	i;
 
 	i = 0;
 	if (!s1)
@@ -40,7 +40,7 @@ void	init_data(t_cub *data)
 	data->player = 0;
 }
 
-void	init_data_2(t_help *help, t_map *maps , t_stat stat)
+void	init_data_2(t_help *help, t_map *maps, t_stat stat)
 {
 	if (stat == HELP)
 	{
@@ -69,32 +69,6 @@ void	init_data_2(t_help *help, t_map *maps , t_stat stat)
 	maps->column = 0;
 }
 
-void	before_filling(t_cub *data)
-{
-	t_help		*help;
-	t_filling	*fill;
-
-	help = data->help;
-	help->tmp = get_next_line(help->i);
-	if (!help->tmp || help->tmp[0] == '\0')
-	{
-		free(help->tmp);
-		help->tmp = NULL;
-		print_err(EMPTY);
-		exit(EXIT_FAILURE);
-	}
-	fill = create_node(data, help->tmp);
-	data->filling = fill;
-	while (true)
-	{
-		free(help->tmp);
-		help->tmp = get_next_line(help->i);
-		if (!help->tmp)
-			break ;
-		add_node(&fill, create_node(data, help->tmp));
-	}
-}
-
 int	skip_spaces(char *str)
 {
 	int	i;
@@ -118,74 +92,3 @@ int	coun_line(char **map)
 		i++;
 	return (i);
 }
-
-void	set_element(t_cub *data)
-{
-	t_filling	*mp;
-	t_filling	*prev;
-
-	mp = data->filling;
-	data->help->x = 0;
-	while (mp && mp->line && (data->help->x < data->begin_map - 1 || just_empty_line(mp->line) == true))
-	{
-		if (just_empty_line(mp->line) == false)
-			expand_texture(data, mp->line);
-		prev = mp;
-		mp = mp->next;
-		free(prev->line);
-		free(prev);
-		prev = NULL;
-		if (!mp)
-		{
-			data->filling = NULL;
-			return ;
-		}
-		(data->help->x)++;
-	}
-	data->filling = mp;
-}
-
-void	set_bool(t_help *help, char c, t_cub *data)
-{
-	if (c == 'N')
-	{
-		help->NO = true;
-		data->count_elem++;
-	}
-	else if (c == 'S')
-	{
-		help->SO = true;
-		data->count_elem++;
-	}
-	else if (c == 'W')
-	{
-		help->WE = true;
-		data->count_elem++;
-	}
-	else if (c == 'E')
-	{
-		help->EA = true;
-		data->count_elem++;
-	}
-	else if (c == 'F')
-	{
-		help->F = true;
-		data->count_elem++;
-	}
-	else if (c == 'C')
-	{
-		help->C = true;
-		data->count_elem++;
-	}
-}
-
-bool	find_all_elem(t_help *help)
-{
-	if (help->C == true && help->EA == true && help->F == true
-		&& help->NO == true && help->SO == true && help->WE == true)
-	{
-		return (true);
-	}
-	return (false);
-}
-

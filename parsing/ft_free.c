@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:51:00 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/16 15:22:11 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:58:38 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int	free_struct(t_cub *data)
 {
-	t_filling	*temp;
-
 	while (data->filling)
 	{
-		temp = data->filling;
 		free(data->filling->line);
 		data->filling->line = NULL;
+		free(data->filling);
+		data->filling = NULL;
 		data->filling = data->filling->next;
-		free(temp);
 	}
+	free(data->filling);
+	data->filling = NULL;
 	return (1);
 }
 
@@ -44,28 +44,15 @@ void	free_d_arr(char **str)
 	str = NULL;
 }
 
-void	free_all_data(t_cub *data)
+int	free_all_data(t_cub *data)
 {
-	// if (data->file)
-	// {
-	// 	free(data->file);
-	// 	data->file = NULL;
-	// }
-	if (data->line_m)
-	{
-		free(data->line_m);
-		data->line_m = NULL;
-	}
-	free_d_arr(data->map);
+	free_struct(data);
+	free_map_ele(data->maps);
+	return (1);
 }
 
 void	free_map_ele(t_map *maps)
 {
-	// if (maps->CE_color)
-	// {
-	// 	free(maps->CE_color);
-	// 	maps->CE_color = NULL;
-	// }
 	if (maps->E_texture)
 	{
 		free(maps->E_texture);
@@ -86,9 +73,6 @@ void	free_map_ele(t_map *maps)
 		free(maps->W_texture);
 		maps->W_texture = NULL;
 	}
-	// if (maps->FL_color)
-	// {
-	// 	free(maps->FL_color);
-	// 	maps->FL_color = NULL;
-	// }		
+	if (maps->map)
+		free_d_arr(maps->map);
 }
