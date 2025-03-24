@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:51:57 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/24 14:03:05 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:45:38 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	reset_map(t_cub *data)
 	t_filling	*fill;
 	int			i;
 	int			x;
-	char	*tmp;
+	char		*tmp;
 
 	tmp = NULL;
 	i = -1;
@@ -88,7 +88,8 @@ void	reset_map(t_cub *data)
 	fill = data->filling;
 	while (fill && ++i <= data->end_map)
 	{
-		data->maps->map[x++] = ft_substr(fill->line, 0, until_new_line(fill->line));
+		data->maps->map[x++] = ft_substr(fill->line, 0,
+				until_new_line(fill->line));
 		fill = fill->next;
 	}
 	data->maps->map[x] = NULL;
@@ -104,11 +105,4 @@ void	set_position(t_map *maps, char p)
 		maps->start_position = EAST;
 	if (p == 'W')
 		maps->start_position = WEST;
-}
-
-bool	is_a_player(char c)
-{
-	if (c != '\0' && (c == 'N' || c == 'S' || c == 'W' || c == 'E'))
-		return (true);
-	return (false);
 }

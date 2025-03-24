@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:33:19 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/24 14:10:51 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:52:01 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	wall_check(t_cub *data, char *line, int index, int i)
 	if (line[i] && line[i] == '\n')
 	{
 		free_map_ele(data->maps);
-		err_or(data, "empty line encountered insid the map!", ft_itoa(index), 1);
+		err_or(data, "empty line encountered insid the map!",
+			ft_itoa(index), 1);
 	}
 	if (line[i] != '1')
 	{

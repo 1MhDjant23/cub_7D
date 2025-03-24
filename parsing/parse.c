@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:30:42 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/24 14:44:43 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:46:47 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	set_large_line(t_map *maps)
 		}
 		i++;
 	}
-	maps->column = coun_line(maps->map);
+	maps->column = coun_line2(maps->map);
 	maps->rwo = curent - 1;
 }
 
@@ -65,7 +65,6 @@ void	set_part_one(t_cub *data)
 		exit(EXIT_FAILURE);
 	}
 	before_filling(data);
-
 	close(data->help->i);
 	init_data_2(NULL, data->maps, MAP);
 	first_check_of_elem(data);
@@ -74,7 +73,6 @@ void	set_part_one(t_cub *data)
 		write(2, "Error\nmap not found\n", 20);
 		exit(free_struct(data));
 	}
-
 	all_element_is_good(data);
 	set_element(data);
 }
@@ -86,13 +84,23 @@ bool	first_step_to_map(t_cub *data)
 	init_data_2(&help, NULL, HELP);
 	data->help = &help;
 	set_part_one(data);
-
-	printf("$$$$$$$$$$$$$$$$$$$\n");
 	check_wall_of_map(data);
-
 	set_large_line(data->maps);
 	free_d_arr(data->maps->map);
 	reset_map(data);
 	insid_map(data, data->help->x);
 	return (false);
+}
+
+void	free_dint(int **pex, mlx_image_t *img)
+{
+	uint32_t	i;
+
+	i = 0;
+	while (i < img->height)
+	{
+		free(pex[i]);
+		i++;
+	}
+	free(pex);
 }

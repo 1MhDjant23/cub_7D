@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:51:00 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/24 13:09:52 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:39:27 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,26 @@
 
 int	free_struct(t_cub *data)
 {
-	t_filling *temp;
+	t_filling	*temp;
 
-    while (data->filling)
-    {
-        temp = data->filling->next; // Store the next node
-        if (data->filling->line)
+	while (data->filling)
+	{
+		temp = data->filling->next;
+		if (data->filling->line)
 		{
-            free(data->filling->line);
+			free(data->filling->line);
 			data->filling->line = NULL;
 		}
-        data->filling->line = NULL;
+		data->filling->line = NULL;
 		if (data->filling)
 		{
-        	free(data->filling);
+			free(data->filling);
 			data->filling = NULL;
 		}
-        data->filling = temp; // Move to the next node
-    }
-    data->filling = NULL;
-    return (1);
+		data->filling = temp;
+	}
+	data->filling = NULL;
+	return (1);
 }
 
 void	free_d_arr(char **str)
@@ -84,4 +84,22 @@ void	free_map_ele(t_map *maps)
 	}
 	if (maps->map)
 		free_d_arr(maps->map);
+}
+
+int	destroy_texture(t_game *game)
+{
+	free_dint(game->pixels->NO_Pexel, game->pixels->NO);
+	free_dint(game->pixels->SO_Pexel, game->pixels->SO);
+	free_dint(game->pixels->WE_Pexel, game->pixels->WE);
+	free_dint(game->pixels->EA_Pexel, game->pixels->EA);
+	if (game->pixels->NO)
+		mlx_delete_image(game->mlx, game->pixels->NO);
+	if (game->pixels->SO)
+		mlx_delete_image(game->mlx, game->pixels->SO);
+	if (game->pixels->WE)
+		mlx_delete_image(game->mlx, game->pixels->WE);
+	if (game->pixels->EA)
+		mlx_delete_image(game->mlx, game->pixels->EA);
+	free_map_ele(game->data->maps);
+	return (1);
 }

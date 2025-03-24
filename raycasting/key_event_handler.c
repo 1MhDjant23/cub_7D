@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_event_handler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felhafid <felhafid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:44:17 by felhafid          #+#    #+#             */
-/*   Updated: 2025/03/20 20:18:06 by felhafid         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:14:28 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	key_hook( void *param)
 	nx = game->player_x;
 	ny = game->player_y;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
-		exit(0);
+		exit(destroy_texture(game));
 	a = player_move(game, &nx, &ny);
 	if (check_for_walls(game, nx, ny) == -1)
 		find = -1;

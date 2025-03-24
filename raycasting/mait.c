@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:00:37 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/23 14:23:56 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:14:08 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,37 +24,19 @@ mlx_texture_t	*load_textures(char *texturePNG)
 	return (tmpTexture);
 }
 
-void	load_images(t_game *game)
+void	load_images(t_game *game, mlx_image_t **img, char *text)
 {
-	game->pixels->EA = mlx_texture_to_image(game->mlx, \
-		load_textures(game->data->maps->E_texture));
-	if (!game->pixels->EA)
+	mlx_texture_t	*tmpTexture;
+
+	tmpTexture = mlx_load_png(text);
+	*img = mlx_texture_to_image(game->mlx, tmpTexture);
+	if (!*img)
 	{
 		write(2, "Faillure to load PNG\n", 21);
-		exit(EXIT_FAILURE);
+		mlx_delete_texture(tmpTexture);
+		exit(destroy_texture(game));
 	}
-	// printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
-	game->pixels->NO = mlx_texture_to_image(game->mlx, \
-		load_textures(game->data->maps->N_texture));
-	if (!game->pixels->NO)
-	{
-		write(2, "Faillure to load PNG\n", 21);
-		exit(EXIT_FAILURE);
-	}
-	game->pixels->WE = mlx_texture_to_image(game->mlx, \
-		load_textures(game->data->maps->W_texture));
-	if (!game->pixels->WE)
-	{
-		write(2, "Faillure to load PNG\n", 21);
-		exit(EXIT_FAILURE);
-	}
-	game->pixels->SO = mlx_texture_to_image(game->mlx, \
-		load_textures(game->data->maps->S_texture));
-	if (!game->pixels->SO)
-	{
-		write(2, "Faillure to load PNG\n", 21);
-		exit(EXIT_FAILURE);
-	}
+	mlx_delete_texture(tmpTexture);
 }
 
 int	**get_pexels(mlx_image_t *img)
@@ -100,10 +82,14 @@ void	save_pixels(t_game *game)
 
 	i = -1;
 	j = -1;
-    load_images(game);//mait
+    load_images(game, &game->pixels->SO,game->data->maps->S_texture);//mait
+    load_images(game, &game->pixels->NO,game->data->maps->N_texture);//mait
+    load_images(game, &game->pixels->WE,game->data->maps->W_texture);//mait
+    load_images(game, &game->pixels->EA,game->data->maps->E_texture);//mait
 	game->pixels->NO_Pexel = get_pexels(game->pixels->NO);
 	game->pixels->WE_Pexel = get_pexels(game->pixels->WE);
 	game->pixels->EA_Pexel = get_pexels(game->pixels->EA);
+
 	game->pixels->SO_Pexel = get_pexels(game->pixels->SO);
 }
 
@@ -150,23 +136,23 @@ mlx_image_t	*select_texture_to_put(t_game *game, int r_counter, int ***color)
 {
 	if (!game->ray[r_counter].H_or_V && game->ray[r_counter].facing_x == LEFT)
 	{
-		*color = game->pixels->SO_Pexel;
-		return (game->pixels->SO);
-	}
-	else if (!game->ray[r_counter].H_or_V && game->ray[r_counter].facing_x == RIGHT)
-	{
-		*color = game->pixels->NO_Pexel;
-		return (game->pixels->NO);
-	}
-	else if (game->ray[r_counter].H_or_V && game->ray[r_counter].facing_y == DOWN)
-	{
 		*color = game->pixels->WE_Pexel;
 		return (game->pixels->WE);
 	}
-	else if (game->ray[r_counter].H_or_V && game->ray[r_counter].facing_y == UP)
+	else if (!game->ray[r_counter].H_or_V && game->ray[r_counter].facing_x == RIGHT)
 	{
 		*color = game->pixels->EA_Pexel;
 		return (game->pixels->EA);
+	}
+	else if (game->ray[r_counter].H_or_V && game->ray[r_counter].facing_y == DOWN)
+	{
+		*color = game->pixels->SO_Pexel;
+		return (game->pixels->SO);
+	}
+	else if (game->ray[r_counter].H_or_V && game->ray[r_counter].facing_y == UP)
+	{
+		*color = game->pixels->NO_Pexel;
+		return (game->pixels->NO);
 	}
 	return (NULL);
 }

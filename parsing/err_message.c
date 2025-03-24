@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:51:57 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/05 09:53:40 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:16:56 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ void	cannot_find(char *str)
 	if (ft_compare(str, "EA ") == 0)
 		write(2, "Error\nEnter valid path to the `EAST` texture.\n", 47);
 	if (ft_compare(str, "F ") == 0)
-		write(2, "Error\n`FLOOR COLOR`Set R,G,B colors in range [0,255].\n",54);
+		write(2, "Error\n`FLOOR COLOR`Set R,G,B colors in range [0,255].\n", 54);
 	if (ft_compare(str, "C ") == 0)
-		write(2, "Error\n`CEILING COLOR`Set R,G,B colors in range [0,255].\n", 56);
+		write(2, "Error\n`CEILING COLOR`Set R,G,B colors in range [0,255].\n",
+			56);
 }
 
 void	elem_not_found(char *str)
@@ -66,8 +67,10 @@ void	elem_not_found(char *str)
 	if (ft_compare(str, "EA ") == 0)
 		write(2, "Error\nObject `EA` not found, please enter `EA`", 46);
 	if (ft_compare(str, "F ") == 0)
-		write(2, "Error\nObject `F` FLOOR COLOR not found, please enter `F`", 56);
+		write(2, "Error\nObject `F` FLOOR COLOR not found, please enter `F`",
+			56);
 	if (ft_compare(str, "C ") == 0)
-		write(2, "Error\nObject `C`CEILING COLOR not found, please enter `C`", 57);
+		write(2, "Error\nObject `C`CEILING COLOR not found, please enter `C`",
+			57);
 	write(2, " followed by it's path.\n", 24);
 }

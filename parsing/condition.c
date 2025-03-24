@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 15:03:47 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/22 21:43:14 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:47:41 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,25 @@ size_t	until_new_line(char *str)
 	if (!str)
 		return (0);
 	while (str[i] && str[i] != '\n')
+		i++;
+	return (i);
+}
+
+bool	is_a_player(char c)
+{
+	if (c != '\0' && (c == 'N' || c == 'S' || c == 'W' || c == 'E'))
+		return (true);
+	return (false);
+}
+
+int	coun_line2(char **map)
+{
+	int	i;
+
+	if (!map)
+		return (0);
+	i = 0;
+	while (map[i] && !just_empty_line(map[i]))
 		i++;
 	return (i);
 }

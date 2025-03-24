@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:41:21 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/24 14:44:29 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:51:38 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	sub_check(t_cub *data, char **line, int *i)
 	new = NULL;
 	if (check_line_element(data->help, *line, data) == true \
 		&& without_info(*line) == false)
-		err_or(data, "Invalid character(or line) between element", ft_itoa(*i), 0);
+		err_or(data, "Invalid character(or line) between element",
+			ft_itoa(*i), 0);
 	else if (just_empty_line(*line) == false)
 	{
 		path = just_path(*line);
@@ -58,7 +59,8 @@ void	sub_check(t_cub *data, char **line, int *i)
 		if (path)
 			free(path);
 		if (ft_strlen(*line) <= 2 || !new)
-			err_or(data, "element without specific informations", ft_itoa(*i), 0);
+			err_or(data, "element without specific informations",
+				ft_itoa(*i), 0);
 		free(new);
 		new = NULL;
 	}
@@ -84,7 +86,6 @@ void	first_check_of_elem(t_cub *data)
 		sub_check(data, &mp->line, &i);
 		mp = mp->next;
 	}
-
 	while (mp && just_empty_line(mp->line) == true)
 	{
 		i++;
@@ -123,10 +124,8 @@ void	all_element_is_good(t_cub *data)
 	{
 		if (just_empty_line(mp->line) == false)
 		{
-			// printf("*%s\n", mp->line);
 			path_if_exist(data, mp->line);
 			color_valid(data, data->help, mp->line);
-			
 		}
 		mp = mp->next;
 		(help->i)++;

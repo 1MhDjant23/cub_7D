@@ -149,7 +149,8 @@ int	get_color_from_distance(double distance);//color draw
 int	get_color_from_texture(t_game *game, int myXX, int myYY);//mait
 void	load_pixels(t_game *game);
 void	save_pixels(t_game *game);
-void	load_images(t_game *game);
+// void	load_images(t_game *game);
+void	load_images(t_game *game, mlx_image_t **img, char *text);
 void	draw_wall(int *start_wall, t_game *game, int ray_counter, double line_H);
 int	free_struct(t_cub *data);
 
@@ -159,6 +160,7 @@ bool	check_valid_extension(char *file_name);
 bool	first_step_to_map(t_cub *data);
 void	print_position(t_stat position);
 int	err_or(t_cub *data, char *str, char *index, int stat);
+int	coun_line2(char **map);
 /*__________ Utils ______________ Utils _________________ Utils ____________________*/
 
 size_t	ft_compare(char *s1, char *s2);
@@ -215,6 +217,8 @@ void	free_d_arr(char **str);
 void	free_map_ele(t_map *maps);
 int		free_all_data(t_cub *data);
 void	simple_err(t_cub *data, char *str);
+int		destroy_texture(t_game *game);
+void	free_dint(int **pex, mlx_image_t *img);
 
 /*______________________________Recasting Part ___________________________________________*/
 // void	key_hook(mlx_key_data_t keydata, void *param);
