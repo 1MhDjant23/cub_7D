@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <math.h>
-#include "../../MLX42/include/MLX42/MLX42.h"
+#include "/Users/mait-taj/Desktop/MLX42/include/MLX42/MLX42.h"
 #include "libft/libft.h"
 #include "parsing/get_next_line/get_next_line.h"
 
@@ -158,6 +158,7 @@ int	free_struct(t_cub *data);
 bool	check_valid_extension(char *file_name);
 bool	first_step_to_map(t_cub *data);
 void	print_position(t_stat position);
+int	err_or(t_cub *data, char *str, char *index, int stat);
 /*__________ Utils ______________ Utils _________________ Utils ____________________*/
 
 size_t	ft_compare(char *s1, char *s2);
@@ -165,12 +166,8 @@ void	init_data(t_cub *data);
 void	init_data_2(t_help *help, t_map *maps, t_stat stat);
 void	before_filling(t_cub *data);
 int		coun_line(char **map);
-// int		coun_line(char *line);
-// char	*str_str(char *src, char *st, t_help *help);
-// void    check_necessary_elem(t_cub *data);
-// t_stat	choise_stat(int n);
 int		skip_spaces(char *str);
-// void	extr_val_of_elem(char *elemnt, t_help *help);
+void	set_position(t_map *maps, char p);
 t_filling	*create_node(t_cub *data, char *content);
 // bool	check_empty_line(char *line);
 void	add_node(t_filling **head, t_filling *new);
@@ -179,12 +176,20 @@ bool	check_line_element(t_help *help, char *line, t_cub *data);
 void	set_bool(t_help *help, char c, t_cub *data);
 bool	find_all_elem(t_help *help);
 bool	just_empty_line(char *line);
-char	*extract_element(char *line, int index, char *src, int x);
+// char	*extract_element(char *line, int index, char *src, int x);
+char	*extract_element(char *line, int j, char *src, t_cub *data);
 void	all_element_is_good(t_cub *data);
 void	path_if_exist(t_cub *data, char *line);
-void	color_valid(t_help *help , char *line);
+void	color_valid(t_cub *data, t_help *help , char *line);
 bool	without_info(char *line);
-char	*valid_arg_color(char *line, int index, int i);
+// char	*valid_arg_color(char *line, int index, int i);
+char	*argcolor(t_cub *data, char *line, int index, int i);
+size_t	until_new_line(char *str);
+char	*just_path(char *line);
+bool	line_map(char *line, int i);
+void	list_to_darray(t_cub *data, int i);
+void	map_boundaries(int *end, char **map);
+bool	is_a_player(char c);
 
 /*+++++++++++++++++++++ Parse Map ++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
@@ -202,12 +207,14 @@ void	cannot_find(char *str);
 void	elem_not_found(char *str);
 int		print_errline(char *i_to_a, char *s1);
 int		err(char *str);
+void	complex_err(t_cub *data, char *str, char *i, char *j);
 
 /*______________________________ Free Data ___________________________________________*/
 
 void	free_d_arr(char **str);
 void	free_map_ele(t_map *maps);
-void	free_all_data(t_cub *data);
+int		free_all_data(t_cub *data);
+void	simple_err(t_cub *data, char *str);
 
 /*______________________________Recasting Part ___________________________________________*/
 // void	key_hook(mlx_key_data_t keydata, void *param);

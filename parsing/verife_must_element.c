@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:04:20 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/22 15:02:32 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:30:34 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	before_filling(t_cub *data)
 			break ;
 		add_node(&fill, create_node(data, help->tmp));
 	}
+	free(help->tmp);
 }
 
 void	set_element(t_cub *data)
@@ -48,16 +49,18 @@ void	set_element(t_cub *data)
 	{
 		if (just_empty_line(mp->line) == false)
 			expand_texture(data, mp->line);
-		prev = mp;
-		mp = mp->next;
-		free(prev->line);
-		free(prev);
-		prev = NULL;
-		if (!mp)
+		prev = mp->next;
+		free(mp->line);
+		mp->line = NULL;
+		free(mp);
+		mp = NULL;
+		if (!prev)
 		{
+			free_struct(data);
 			data->filling = NULL;
 			return ;
 		}
+		mp = prev;
 		(data->help->x)++;
 	}
 	data->filling = mp;

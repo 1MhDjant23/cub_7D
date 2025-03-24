@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 08:30:39 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/22 17:59:23 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:53:00 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ void	surrounded_wall(t_cub *data, int y, int i)
 		&& i >= (int)(ft_strlen(data->maps->map[y - 1]))
 			&& data->maps->map[y][i] != '1')
 	{
-		complex_err(data, "map must closed and surrounded by walls `1`",
+		complex_err(data, "map must closed and surrounded by walls `1`", \
 			ft_itoa(data->begin_map + y), ft_itoa(i + 1));
 	}
 	if (ft_strlen(data->maps->map[y]) > ft_strlen(data->maps->map[y + 1])
 		&& i >= (int)(ft_strlen(data->maps->map[y + 1]))
 			&& data->maps->map[y][i] != '1')
 	{
-		complex_err(data, "map must closed and surrounded by walls `1`",
+		complex_err(data, "map must closed and surrounded by walls `1`", \
 			ft_itoa(data->begin_map + y), ft_itoa(i + 1));
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 14:43:23 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/22 18:01:47 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:06:54 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*argcolor(t_cub *data, char *line, int index, int i)
 	while (spl[i])
 		argu_ment(data, spl[i++], index);
 	free_d_arr(spl);
-	return (&line[1]);
+	return (ft_strdup(&line[1]));
 }
 
 void	color_valid(t_cub *data, t_help *help, char *line)

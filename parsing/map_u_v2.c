@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:51:57 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/22 17:29:06 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:03:05 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,29 +59,39 @@ void	list_to_darray(t_cub *data, int i)
 	data->maps->map[i] = NULL;
 }
 
+int	line_struct(t_filling *fill)
+{
+	int	i;
+
+	i = 0;
+	while (fill && just_empty_line(fill->line) == false)
+	{
+		i++;
+		fill = fill->next;
+	}
+	return (i);
+}
+
 void	reset_map(t_cub *data)
 {
 	t_filling	*fill;
 	int			i;
-	char		*tmp;
+	int			x;
+	char	*tmp;
 
-	fill = data->filling;
+	tmp = NULL;
 	i = -1;
-	data->help->tmp = ft_strjoin(data->help->tmp, fill->line);
-	fill = fill->next;
+	x = 0;
+	data->maps->map = malloc(sizeof(char *) * (line_struct(data->filling) + 1));
+	if (!data->maps->map)
+		exit(free_all_data(data));
+	fill = data->filling;
 	while (fill && ++i <= data->end_map)
 	{
-		tmp = data->help->tmp;
-		data->help->tmp = ft_strjoin(data->help->tmp, fill->line);
-		free(tmp);
-		free(fill->line);
-		free(fill);
+		data->maps->map[x++] = ft_substr(fill->line, 0, until_new_line(fill->line));
 		fill = fill->next;
 	}
-	free(data->filling);
-	data->maps->map = ft_split(data->help->tmp, '\n');
-	free(data->help->tmp);
-	data->help->tmp = NULL;
+	data->maps->map[x] = NULL;
 }
 
 void	set_position(t_map *maps, char p)

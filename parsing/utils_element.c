@@ -6,17 +6,41 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 16:37:20 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/22 18:00:48 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 10:57:36 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+char	*sub_string(char *src)
+{
+	int	i;
+	char	*sub;
+
+	i = 0;
+	if (!src)
+		return (NULL);
+	while (src[i] && src[i] != '\n')
+		i++;
+	sub = malloc(sizeof(char ) * i + 1);
+	if (!sub)
+		exit(1);	
+	i = 0;
+	while (src[i] && src[i] != '\n')
+	{
+		sub[i] = src[i];
+		i++;
+	}
+	sub[i] = '\0';
+	return (sub);
+}
 
 char	*extract_element(char *line, int j, char *src, t_cub *data)
 {
 	int		i;
 	int		x;
 	int		count;
+	char	*tmp;
 
 	count = 0;
 	i = 0;
@@ -24,8 +48,9 @@ char	*extract_element(char *line, int j, char *src, t_cub *data)
 	if (!line)
 		return (NULL);
 	x += skip_spaces(src);
-	if ((src[x] == 'C' || src[x] == 'F') && argcolor(data, &src[x + 1], j, x))
-		return (argcolor(data, &src[x + 1], j, x));
+	// tmp = argcolor(data, &src[x + 1], j, x);
+	if ((src[x] == 'C' || src[x] == 'F') && (tmp = argcolor(data, &src[x + 1], j, x)))
+		return (free(tmp), argcolor(data, &src[x + 1], j, x));
 	i += skip_spaces(line);
 	while (line[i] && line[i] != '\n' && line[i] != ' ')
 	{
@@ -38,7 +63,7 @@ char	*extract_element(char *line, int j, char *src, t_cub *data)
 		if (line[i] != '\0' && line[i] != '\n')
 			err_or(data, " Bad info encountered.", ft_itoa(j), 0);
 	}
-	return (free(src), ft_substr(line, 0, until_new_line(line)));
+	return (sub_string(line));
 }
 
 bool	sub_condition(char *line, int i)
@@ -80,14 +105,13 @@ bool	check_line_element(t_help *help, char *line, t_cub *data)
 	return (false);
 }
 
-char	*just_path(char *line, t_help *help)
+char	*just_path(char *line)
 {
 	int	i;
 	int	x;
 
 	x = 0;
 	i = 0;
-	(void)help;
 	if (line[0] && line[0] == ' ')
 		i += skip_spaces(line);
 	while (line[i])
@@ -95,7 +119,7 @@ char	*just_path(char *line, t_help *help)
 		if (line[i] == ' ') 
 		{
 			i += skip_spaces(&line[i]);
-			return (&line[i]);
+			return (ft_strdup(&line[i]));
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:51:00 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/22 17:58:38 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:09:52 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,26 @@
 
 int	free_struct(t_cub *data)
 {
-	while (data->filling)
-	{
-		free(data->filling->line);
-		data->filling->line = NULL;
-		free(data->filling);
-		data->filling = NULL;
-		data->filling = data->filling->next;
-	}
-	free(data->filling);
-	data->filling = NULL;
-	return (1);
+	t_filling *temp;
+
+    while (data->filling)
+    {
+        temp = data->filling->next; // Store the next node
+        if (data->filling->line)
+		{
+            free(data->filling->line);
+			data->filling->line = NULL;
+		}
+        data->filling->line = NULL;
+		if (data->filling)
+		{
+        	free(data->filling);
+			data->filling = NULL;
+		}
+        data->filling = temp; // Move to the next node
+    }
+    data->filling = NULL;
+    return (1);
 }
 
 void	free_d_arr(char **str)

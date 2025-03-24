@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:41:21 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/22 18:01:13 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:44:29 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,30 @@ char	*join_obj_with_path(t_cub *data, char *s1, char *s2)
 	while (i < (int)ft_strlen(s1))
 		new[count++] = s1[i++];
 	new[count] = '\0';
-	if (s2)
-		free(s2);
+	free(s2);
 	return (new);
 }
 
 void	sub_check(t_cub *data, char **line, int *i)
 {
 	char	*new;
+	char	*path;
 
+	new = NULL;
 	if (check_line_element(data->help, *line, data) == true \
 		&& without_info(*line) == false)
 		err_or(data, "Invalid character(or line) between element", ft_itoa(*i), 0);
 	else if (just_empty_line(*line) == false)
 	{
-		new = extract_element(just_path(*line, data->help), *i, *line, data);
+		path = just_path(*line);
+		new = extract_element(path, *i, *line, data);
 		*line = join_obj_with_path(data, new, *line);
+		if (path)
+			free(path);
 		if (ft_strlen(*line) <= 2 || !new)
 			err_or(data, "element without specific informations", ft_itoa(*i), 0);
+		free(new);
+		new = NULL;
 	}
 	(*i)++;
 }
@@ -67,16 +73,18 @@ void	first_check_of_elem(t_cub *data)
 	i = 1;
 	init_data_2(data->help, NULL, HELP);
 	mp = data->filling;
-
 	while (mp)
 	{
 		if (data->count_elem > 6)
+		{
 			simple_err(data, "too many elements\n");
+		}
 		if (find_all_elem(data->help) == true)
 			break ;
 		sub_check(data, &mp->line, &i);
 		mp = mp->next;
 	}
+
 	while (mp && just_empty_line(mp->line) == true)
 	{
 		i++;
@@ -118,6 +126,7 @@ void	all_element_is_good(t_cub *data)
 			// printf("*%s\n", mp->line);
 			path_if_exist(data, mp->line);
 			color_valid(data, data->help, mp->line);
+			
 		}
 		mp = mp->next;
 		(help->i)++;

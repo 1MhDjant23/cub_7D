@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 16:39:02 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/22 18:00:36 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:30:29 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,10 @@ void	path_if_exist(t_cub *data, char *line)
 	char	*path;
 
 	path = NULL;
-	// printf("%s\n", line);
 	if (line[0] == 'E' || line[0] == 'N' || line[0] == 'S' || line[0] == 'W')
 		path = &line[2];
 	else
 		return ;
-	// printf("$$$$$$$$$$$$$$$$$$$$$$$$$\n");
 	extension_of_textures(data, path);
 	data->help->x = open(path, O_RDONLY);
 	if (data->help->x == -1)
