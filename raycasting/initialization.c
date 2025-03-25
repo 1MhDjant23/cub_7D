@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 15:54:38 by felhafid          #+#    #+#             */
-/*   Updated: 2025/03/25 12:33:26 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:25:54 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	init_game_data(t_game *game)
 	x = 0;
 	y = 0;
 	i = 0;
-	game->ray = malloc(sizeof(ray_cast) * WIDTH);
+	game->ray = malloc(sizeof(t_ray_cast) * WIDTH);
 	if (!game->ray)
 	{
 		free_map_ele(game->data->maps);

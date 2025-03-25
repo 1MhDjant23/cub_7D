@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:04:20 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/24 11:30:34 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:35:40 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	before_filling(t_cub *data)
 {
-	t_help		*help;
-	t_filling	*fill;
+	t_help	*help;
+	t_fil	*fill;
 
 	help = data->help;
 	help->tmp = get_next_line(help->i);
@@ -39,8 +39,8 @@ void	before_filling(t_cub *data)
 
 void	set_element(t_cub *data)
 {
-	t_filling	*mp;
-	t_filling	*prev;
+	t_fil	*mp;
+	t_fil	*prev;
 
 	mp = data->filling;
 	data->help->x = 0;
@@ -96,23 +96,23 @@ void	expand_texture(t_cub *data, char *info)
 	if (!info)
 		return ;
 	if (info[0] && info[0] == 'N')
-		data->maps->N_texture = ft_strdup(&info[2]);
+		data->maps->n_texture = ft_strdup(&info[2]);
 	if (info[0] && info[0] == 'S')
-		data->maps->S_texture = ft_strdup(&info[2]);
+		data->maps->s_texture = ft_strdup(&info[2]);
 	if (info[0] && info[0] == 'W')
-		data->maps->W_texture = ft_strdup(&info[2]);
+		data->maps->w_texture = ft_strdup(&info[2]);
 	if (info[0] && info[0] == 'E')
-		data->maps->E_texture = ft_strdup(&info[2]);
+		data->maps->e_texture = ft_strdup(&info[2]);
 	if (info[0] && info[0] == 'C')
-		data->maps->CE_color = convert_floor_celing_color(data, &info[1]);
+		data->maps->ce_color = convert_floor_celing_color(data, &info[1]);
 	if (info[0] && info[0] == 'F')
-		data->maps->FL_color = convert_floor_celing_color(data, &info[1]);
+		data->maps->fl_color = convert_floor_celing_color(data, &info[1]);
 }
 
 bool	find_all_elem(t_help *help)
 {
-	if (help->C == true && help->EA == true && help->F == true
-		&& help->NO == true && help->SO == true && help->WE == true)
+	if (help->c == true && help->ea == true && help->f == true
+		&& help->no == true && help->so == true && help->we == true)
 	{
 		return (true);
 	}

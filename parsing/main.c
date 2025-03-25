@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:28:54 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/25 14:04:04 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:37:09 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ void	reset_map_as_needed(t_cub *data)
 	}
 }
 
-// void	leak()
-// {
-// 	system("leaks cub3D");
-// }
+void	leak()
+{
+	system("leaks cub3D");
+}
 int	main(int ac, char **av)
 {
 	t_cub	data;
@@ -86,6 +86,7 @@ int	main(int ac, char **av)
 	t_pixel	pixels;
 
 	(void)ac;
+	atexit(leak);
 	init_data(&data);
 	if (!check_valid_extension(av[1]))
 		return (1);

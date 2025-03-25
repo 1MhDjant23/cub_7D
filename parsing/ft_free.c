@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:51:00 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/25 12:35:08 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:34:11 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	free_struct(t_cub *data)
 {
-	t_filling	*temp;
+	t_fil	*temp;
 
 	while (data->filling)
 	{
@@ -62,25 +62,25 @@ int	free_all_data(t_cub *data)
 
 void	free_map_ele(t_map *maps)
 {
-	if (maps->E_texture)
+	if (maps->e_texture)
 	{
-		free(maps->E_texture);
-		maps->E_texture = NULL;
+		free(maps->e_texture);
+		maps->e_texture = NULL;
 	}
-	if (maps->N_texture)
+	if (maps->n_texture)
 	{
-		free(maps->N_texture);
-		maps->N_texture = NULL;
+		free(maps->n_texture);
+		maps->n_texture = NULL;
 	}
-	if (maps->S_texture)
+	if (maps->s_texture)
 	{
-		free(maps->S_texture);
-		maps->S_texture = NULL;
+		free(maps->s_texture);
+		maps->s_texture = NULL;
 	}
-	if (maps->W_texture)
+	if (maps->w_texture)
 	{
-		free(maps->W_texture);
-		maps->W_texture = NULL;
+		free(maps->w_texture);
+		maps->w_texture = NULL;
 	}
 	if (maps->map)
 		free_d_arr(maps->map);
@@ -89,18 +89,18 @@ void	free_map_ele(t_map *maps)
 int	destroy_texture(t_game *game)
 {
 	free(game->ray);
-	free_dint(game->pixels->NO_Pexel, game->pixels->NO);
-	free_dint(game->pixels->SO_Pexel, game->pixels->SO);
-	free_dint(game->pixels->WE_Pexel, game->pixels->WE);
-	free_dint(game->pixels->EA_Pexel, game->pixels->EA);
-	if (game->pixels->NO)
-		mlx_delete_image(game->mlx, game->pixels->NO);
-	if (game->pixels->SO)
-		mlx_delete_image(game->mlx, game->pixels->SO);
-	if (game->pixels->WE)
-		mlx_delete_image(game->mlx, game->pixels->WE);
-	if (game->pixels->EA)
-		mlx_delete_image(game->mlx, game->pixels->EA);
+	free_dint(game->pixels->no_pexel, game->pixels->no);
+	free_dint(game->pixels->so_pexel, game->pixels->so);
+	free_dint(game->pixels->we_pexel, game->pixels->we);
+	free_dint(game->pixels->ea_pexel, game->pixels->ea);
+	if (game->pixels->no)
+		mlx_delete_image(game->mlx, game->pixels->no);
+	if (game->pixels->so)
+		mlx_delete_image(game->mlx, game->pixels->so);
+	if (game->pixels->we)
+		mlx_delete_image(game->mlx, game->pixels->we);
+	if (game->pixels->ea)
+		mlx_delete_image(game->mlx, game->pixels->ea);
 	free_map_ele(game->data->maps);
 	return (1);
 }

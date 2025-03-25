@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:41:21 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/24 17:51:38 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:35:30 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	sub_check(t_cub *data, char **line, int *i)
 
 void	first_check_of_elem(t_cub *data)
 {
-	t_filling	*mp;
-	int			i;
+	t_fil	*mp;
+	int		i;
 
 	i = 1;
 	init_data_2(data->help, NULL, HELP);
@@ -114,8 +114,8 @@ bool	just_empty_line(char *line)
 
 void	all_element_is_good(t_cub *data)
 {
-	t_filling	*mp;
-	t_help		*help;
+	t_fil	*mp;
+	t_help	*help;
 
 	help = data->help;
 	mp = data->filling;

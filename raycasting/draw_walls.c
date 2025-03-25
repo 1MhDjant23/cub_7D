@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 14:09:56 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/25 14:26:15 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:27:39 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	get_offset_x(mlx_image_t *img, t_game *game, int count_ray)
 {
 	int	offset;
 
-	if (game->ray[count_ray].H_or_V)
+	if (game->ray[count_ray].h_or_v)
 		offset = ((game->ray[count_ray].x_ray / TILESIZE) - floor(game
 					->ray[count_ray].x_ray / TILESIZE)) * img->width;
 	else
@@ -35,27 +35,27 @@ int	get_offset_y(mlx_image_t *img, int j, double line_H)
 
 mlx_image_t	*select_texture_to_put(t_game *game, int r_counter, int ***color)
 {
-	if (!game->ray[r_counter].H_or_V && game->ray[r_counter].facing_x == LEFT)
+	if (!game->ray[r_counter].h_or_v && game->ray[r_counter].facing_x == LEFT)
 	{
-		*color = game->pixels->WE_Pexel;
-		return (game->pixels->WE);
+		*color = game->pixels->we_pexel;
+		return (game->pixels->we);
 	}
-	else if (!game->ray[r_counter].H_or_V && game
+	else if (!game->ray[r_counter].h_or_v && game
 		->ray[r_counter].facing_x == RIGHT)
 	{
-		*color = game->pixels->EA_Pexel;
-		return (game->pixels->EA);
+		*color = game->pixels->ea_pexel;
+		return (game->pixels->ea);
 	}
-	else if (game->ray[r_counter].H_or_V && game
+	else if (game->ray[r_counter].h_or_v && game
 		->ray[r_counter].facing_y == DOWN)
 	{
-		*color = game->pixels->SO_Pexel;
-		return (game->pixels->SO);
+		*color = game->pixels->so_pexel;
+		return (game->pixels->so);
 	}
-	else if (game->ray[r_counter].H_or_V && game->ray[r_counter].facing_y == UP)
+	else if (game->ray[r_counter].h_or_v && game->ray[r_counter].facing_y == UP)
 	{
-		*color = game->pixels->NO_Pexel;
-		return (game->pixels->NO);
+		*color = game->pixels->no_pexel;
+		return (game->pixels->no);
 	}
 	return (NULL);
 }

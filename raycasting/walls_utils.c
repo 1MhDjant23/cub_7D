@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:00:37 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/25 14:16:16 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:25:40 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ void	save_pixels(t_game *game)
 
 	i = -1;
 	j = -1;
-	load_images(game, &game->pixels->SO, game->data->maps->S_texture);
-	load_images(game, &game->pixels->NO, game->data->maps->N_texture);
-	load_images(game, &game->pixels->WE, game->data->maps->W_texture);
-	load_images(game, &game->pixels->EA, game->data->maps->E_texture);
-	game->pixels->NO_Pexel = get_pexels(game->pixels->NO);
-	game->pixels->WE_Pexel = get_pexels(game->pixels->WE);
-	game->pixels->EA_Pexel = get_pexels(game->pixels->EA);
-	game->pixels->SO_Pexel = get_pexels(game->pixels->SO);
+	load_images(game, &game->pixels->so, game->data->maps->s_texture);
+	load_images(game, &game->pixels->no, game->data->maps->n_texture);
+	load_images(game, &game->pixels->we, game->data->maps->w_texture);
+	load_images(game, &game->pixels->ea, game->data->maps->e_texture);
+	game->pixels->no_pexel = get_pexels(game->pixels->no);
+	game->pixels->we_pexel = get_pexels(game->pixels->we);
+	game->pixels->ea_pexel = get_pexels(game->pixels->ea);
+	game->pixels->so_pexel = get_pexels(game->pixels->so);
 }

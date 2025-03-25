@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 15:03:47 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/24 17:47:41 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:22:16 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ void	sub_setting(t_help *help, char c, t_cub *data)
 {
 	if (c == 'N')
 	{
-		help->NO = true;
+		help->no = true;
 		data->count_elem++;
 	}
 	else if (c == 'S')
 	{
-		help->SO = true;
+		help->so = true;
 		data->count_elem++;
 	}
 	else if (c == 'W')
 	{
-		help->WE = true;
+		help->we = true;
 		data->count_elem++;
 	}
 }
@@ -35,17 +35,17 @@ void	set_bool(t_help *help, char c, t_cub *data)
 {
 	if (c == 'E')
 	{
-		help->EA = true;
+		help->ea = true;
 		data->count_elem++;
 	}
 	else if (c == 'F')
 	{
-		help->F = true;
+		help->f = true;
 		data->count_elem++;
 	}
 	else if (c == 'C')
 	{
-		help->C = true;
+		help->c = true;
 		data->count_elem++;
 	}
 	sub_setting(help, c, data);

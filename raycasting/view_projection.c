@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view_projection.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felhafid <felhafid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:39:31 by felhafid          #+#    #+#             */
-/*   Updated: 2025/03/22 19:41:49 by felhafid         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:27:39 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	draw_3d(t_game *game)
 		j = 0;
 		value = (HEIGHT - line_height) / 2;
 		while (j < value && j < HEIGHT)
-			mlx_put_pixel(game->img, i, j++, game->data->maps->CE_color);
+			mlx_put_pixel(game->img, i, j++, game->data->maps->ce_color);
 		j = value;
 		draw_wall(&j, game, i, line_height);
 		while (j < HEIGHT)
-			mlx_put_pixel(game->img, i, j++, game->data->maps->FL_color);
+			mlx_put_pixel(game->img, i, j++, game->data->maps->fl_color);
 		i++;
 	}
 }
@@ -42,23 +42,23 @@ void	set_ray_distance(t_game *game, int j)
 	double	distance_h;
 	double	distance_v;
 
-	distance_h = sqrt(pow(game->ray->Hx - game->player_x, 2) \
-	+ pow(game->ray->Hy - game->player_y, 2));
-	distance_v = sqrt(pow(game->ray->Vx - game->player_x, 2) \
-	+ pow(game->ray->Vy - game->player_y, 2));
+	distance_h = sqrt(pow(game->ray->hx - game->player_x, 2) \
+	+ pow(game->ray->hy - game->player_y, 2));
+	distance_v = sqrt(pow(game->ray->vx - game->player_x, 2) \
+	+ pow(game->ray->vy - game->player_y, 2));
 	if (distance_h < distance_v)
 	{
 		game->ray[j].distance = distance_h;
-		game->ray[j].x_ray = game->ray->Hx;
-		game->ray[j].y_ray = game->ray->Hy;
-		game->ray[j].H_or_V = true;
+		game->ray[j].x_ray = game->ray->hx;
+		game->ray[j].y_ray = game->ray->hy;
+		game->ray[j].h_or_v = true;
 	}
 	else
 	{
 		game->ray[j].distance = distance_v;
-		game->ray[j].x_ray = game->ray->Vx;
-		game->ray[j].y_ray = game->ray->Vy;
-		game->ray[j].H_or_V = false;
+		game->ray[j].x_ray = game->ray->vx;
+		game->ray[j].y_ray = game->ray->vy;
+		game->ray[j].h_or_v = false;
 	}
 }
 

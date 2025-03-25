@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   view_projection.c                                  :+:      :+:    :+:   */
+/*   raycast_intersections.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felhafid <felhafid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:31:00 by felhafid          #+#    #+#             */
-/*   Updated: 2025/03/22 19:39:21 by felhafid         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:27:09 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	find_horizontal(t_game *game, int j)
 		y_raydir += y_steps;
 		x_raydir += x_steps;
 	}
-	game->ray->Hx = x_raydir;
-	game->ray->Hy = y_raydir;
+	game->ray->hx = x_raydir;
+	game->ray->hy = y_raydir;
 }
 
 double	find_vert_intr(t_game *game, int j, double *x_raydir, double *y_raydir)
@@ -94,6 +94,6 @@ void	find_vertical(t_game *game, int j)
 		x_raydir += x_steps;
 		y_raydir += y_steps;
 	}
-	game->ray->Vx = x_raydir;
-	game->ray->Vy = y_raydir;
+	game->ray->vx = x_raydir;
+	game->ray->vy = y_raydir;
 }

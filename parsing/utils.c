@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:35:59 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/24 17:47:32 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:23:38 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,21 @@ void	init_data_2(t_help *help, t_map *maps, t_stat stat)
 		help->x = 0;
 		help->tmp = NULL;
 		help->player = 0;
-		help->C = false;
-		help->F = false;
-		help->NO = false;
-		help->SO = false;
-		help->WE = false;
-		help->EA = false;
+		help->c = false;
+		help->f = false;
+		help->no = false;
+		help->so = false;
+		help->we = false;
+		help->ea = false;
 		return ;
 	}
 	maps->map = NULL;
-	maps->CE_color = 0;
-	maps->FL_color = 0;
-	maps->N_texture = NULL;
-	maps->W_texture = NULL;
-	maps->S_texture = NULL;
-	maps->E_texture = NULL;
+	maps->ce_color = 0;
+	maps->fl_color = 0;
+	maps->n_texture = NULL;
+	maps->w_texture = NULL;
+	maps->s_texture = NULL;
+	maps->e_texture = NULL;
 	maps->pl_xx = 0;
 	maps->pl_yy = 0;
 	maps->rwo = 0;

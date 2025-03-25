@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:51:57 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/25 13:44:55 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:35:15 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ char	*dup_line(t_cub *data, char *s1)
 
 void	list_to_darray(t_cub *data, int i)
 {
-	t_filling	*mp;
-	int			size;
+	t_fil	*mp;
+	int		size;
 
 	i = 0;
 	mp = data->filling;
@@ -76,7 +76,7 @@ void	list_to_darray(t_cub *data, int i)
 	data->maps->map[i] = NULL;
 }
 
-int	line_struct(t_filling *fill)
+int	line_struct(t_fil *fill)
 {
 	int	i;
 
@@ -91,10 +91,10 @@ int	line_struct(t_filling *fill)
 
 void	reset_map(t_cub *data)
 {
-	t_filling	*fill;
-	int			i;
-	int			x;
-	char		*tmp;
+	t_fil	*fill;
+	int		i;
+	int		x;
+	char	*tmp;
 
 	tmp = NULL;
 	i = -1;

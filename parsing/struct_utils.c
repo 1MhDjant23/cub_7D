@@ -6,17 +6,17 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 16:39:02 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/24 13:30:29 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:34:11 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-t_filling	*create_node(t_cub *data, char *content)
+t_fil	*create_node(t_cub *data, char *content)
 {
-	t_filling	*node;
+	t_fil	*node;
 
-	node = malloc(sizeof(t_filling));
+	node = malloc(sizeof(t_fil));
 	if (!node)
 	{
 		if (content)
@@ -29,9 +29,9 @@ t_filling	*create_node(t_cub *data, char *content)
 	return (node);
 }
 
-void	add_node(t_filling **head, t_filling *new)
+void	add_node(t_fil **head, t_fil *new)
 {
-	t_filling	*temp;
+	t_fil	*temp;
 
 	if (!head || !new)
 		return ;
@@ -76,7 +76,7 @@ void	path_if_exist(t_cub *data, char *line)
 	close(data->help->x);
 }
 
-int	list_size(t_filling *mp)
+int	list_size(t_fil *mp)
 {
 	int	size;
 
