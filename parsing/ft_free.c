@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:51:00 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/24 17:39:27 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:35:08 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	free_map_ele(t_map *maps)
 
 int	destroy_texture(t_game *game)
 {
+	free(game->ray);
 	free_dint(game->pixels->NO_Pexel, game->pixels->NO);
 	free_dint(game->pixels->SO_Pexel, game->pixels->SO);
 	free_dint(game->pixels->WE_Pexel, game->pixels->WE);

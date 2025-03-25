@@ -6,7 +6,7 @@
 /*   By: felhafid <felhafid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 15:37:13 by felhafid          #+#    #+#             */
-/*   Updated: 2025/03/20 20:18:19 by felhafid         ###   ########.fr       */
+/*   Updated: 2025/03/22 19:52:47 by felhafid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,13 @@ void	facing(t_game *game, int j)
 		game->ray[j].facing_x = RIGHT;
 }
 
-// int	check(t_game *game, double y_ray, double x_ray)
-// {
-// 	double	x;
-// 	double	y;
-
-// 	x = x_ray - 0.001;
-// 	y = y_ray;
-// 	if (game->data->maps->map[(int)(floor(y / TILESIZE))][(int)(floor (x / TILESIZE))] == '1')
-// 		return (-1);
-// 	x = x_ray + 0.001;
-// 	if (game->data->maps->map[(int)(floor(y / TILESIZE))][(int)(floor (x / TILESIZE))] == '1')
-// 		return (-1);
-// 	y = y_ray + 0.001;
-// 	if (game->data->maps->map[(int)(floor(y / TILESIZE))][(int)(floor(x_ray / TILESIZE))] == '1')
-// 		return (-1);
-// 	y = y_ray - 0.001;
-// 	if (game->data->maps->map[(int)(floor(y / TILESIZE))][(int)(floor(x_ray / TILESIZE))] == '1')
-// 		return (-1);
-// 	return (0);
-// }
+void	update_position(t_game *game, int find, double nx, double ny)
+{
+	if ((game->data->maps->map[(int)ny / TILESIZE] \
+		[(int)nx / TILESIZE] != '1') && find != -1) 
+	{
+		game->player_x = nx;
+		game->player_y = ny;
+	}
+	return ;
+}

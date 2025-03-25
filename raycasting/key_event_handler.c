@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:44:17 by felhafid          #+#    #+#             */
-/*   Updated: 2025/03/24 17:14:28 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:37:13 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,27 +104,26 @@ bool	angle_rotation(t_game *game)
 void	key_hook( void *param)
 {
 	t_game	*game;
-	game = (t_game *)param;
-	double nx, ny;
-	int find = 0;
-	bool	a;
-	bool	b;
+	double	nx;
+	double	ny;
+	int		find;
+	bool	true_false[2];
 
+	game = (t_game *)param;
 	nx = game->player_x;
 	ny = game->player_y;
+	find = 0;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+	{
+		mlx_delete_image(game->mlx, game->img);
 		exit(destroy_texture(game));
-	a = player_move(game, &nx, &ny);
+	}
+	true_false[0] = player_move(game, &nx, &ny);
 	if (check_for_walls(game, nx, ny) == -1)
 		find = -1;
-	b = angle_rotation(game);
-	if ((game->data->maps->map[(int)ny / TILESIZE] \
-		[(int)nx / TILESIZE] != '1') && find != -1) 
-	{
-		game->player_x = nx;
-		game->player_y = ny;
-	}
-	if (a == true || b == true)
+	true_false[1] = angle_rotation(game);
+	update_position(game, find, nx, ny);
+	if (true_false[0] == true || true_false[1] == true)
 	{
 		mlx_delete_image(game->mlx, game->img);
 		render_view(game);

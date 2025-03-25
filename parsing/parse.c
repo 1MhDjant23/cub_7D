@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:30:42 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/24 17:46:47 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 11:09:47 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void	free_dint(int **pex, mlx_image_t *img)
 	uint32_t	i;
 
 	i = 0;
+	if (!pex)
+		return ;
 	while (i < img->height)
 	{
 		free(pex[i]);

@@ -1,0 +1,11 @@
+NO ./textures/eagle.png
+SO ./textures/bluestone.png
+WE ./textures/grung.png
+EA ./textures/wall_1.png
+
+F 179, 173, 104              
+C 170, 255, 253
+
+  1
+ 1S1
+  1

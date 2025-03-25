@@ -6,7 +6,7 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:51:57 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/23 16:48:21 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 13:59:18 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	complex_err(t_cub *data, char *str, char *i, char *j)
 
 void	simple_err(t_cub *data, char *str)
 {
-	(void)data;
 	err("Error\n");
 	err(str);
 	free_struct(data);

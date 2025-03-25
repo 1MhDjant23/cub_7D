@@ -6,11 +6,23 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:28:54 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/24 17:57:09 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 14:04:04 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	set_position(t_map *maps, char p)
+{
+	if (p == 'N')
+		maps->start_position = NORTH;
+	if (p == 'S')
+		maps->start_position = SOUTH;
+	if (p == 'E')
+		maps->start_position = EAST;
+	if (p == 'W')
+		maps->start_position = WEST;
+}
 
 char	*join_with_spaces(char *str, int size)
 {
@@ -62,10 +74,10 @@ void	reset_map_as_needed(t_cub *data)
 	}
 }
 
-void	leak()
-{
-	system("leaks cub3D");
-}
+// void	leak()
+// {
+// 	system("leaks cub3D");
+// }
 int	main(int ac, char **av)
 {
 	t_cub	data;
@@ -74,7 +86,6 @@ int	main(int ac, char **av)
 	t_pixel	pixels;
 
 	(void)ac;
-	atexit(leak);
 	init_data(&data);
 	if (!check_valid_extension(av[1]))
 		return (1);
@@ -90,7 +101,7 @@ int	main(int ac, char **av)
 	mlx_loop_hook(game.mlx, &key_hook, &game);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_loop(game.mlx);
+	destroy_texture(&game);
 	mlx_terminate(game.mlx);
-	free_map_ele(data.maps);
 	return (0);
 }

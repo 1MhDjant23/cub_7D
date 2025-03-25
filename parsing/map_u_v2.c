@@ -6,11 +6,27 @@
 /*   By: mait-taj <mait-taj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 09:51:57 by mait-taj          #+#    #+#             */
-/*   Updated: 2025/03/24 17:45:38 by mait-taj         ###   ########.fr       */
+/*   Updated: 2025/03/25 13:44:55 by mait-taj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+bool	new_line_exist(char *s)
+{
+	int	i;
+
+	if (!s)
+		return (false);
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '\n')
+			return (true);
+		i++;
+	}
+	return (false);
+}
 
 char	*dup_line(t_cub *data, char *s1)
 {
@@ -25,10 +41,11 @@ char	*dup_line(t_cub *data, char *s1)
 	if (just_empty_line(s1) == true)
 		return (ft_strdup("\n"));
 	len = ft_strlen(s1) - 2;
+	if (!new_line_exist(s1))
+		len = ft_strlen(s1) - 1;
 	while (len >= 0 && s1[len] && s1[len] == ' ')
 		len--;
-	len++;
-	dup_l = malloc((len + 2) * sizeof(char));
+	dup_l = malloc(((len++) + 2) * sizeof(char));
 	if (!dup_l)
 		exit(free_all_data(data));
 	if (s1[0] != '\n' && s1[0] != ' ' && ft_strlen(s1) == 1)
@@ -93,16 +110,4 @@ void	reset_map(t_cub *data)
 		fill = fill->next;
 	}
 	data->maps->map[x] = NULL;
-}
-
-void	set_position(t_map *maps, char p)
-{
-	if (p == 'N')
-		maps->start_position = NORTH;
-	if (p == 'S')
-		maps->start_position = SOUTH;
-	if (p == 'E')
-		maps->start_position = EAST;
-	if (p == 'W')
-		maps->start_position = WEST;
 }

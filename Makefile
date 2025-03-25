@@ -15,8 +15,8 @@ CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 # SRC = $(shell find parsing raycasting -name "*.c")
 SRC = parsing/parse.c parsing/struct_utils.c parsing/utils_element.c parsing/main.c parsing/utils.c parsing/errors.c parsing/verife_must_element.c\
         parsing/utils_V1.c parsing/ft_free.c parsing/map_utils.c parsing/color_check.c parsing/wall_utils.c parsing/condition.c parsing/map_u_v2.c\
-		  raycasting/key_event_handler.c  raycasting/raycast_utils.c  raycasting/initialization.c raycasting/raycasting_dda.c raycasting/view_projection.c\
-		  raycasting/mait.c
+		  raycasting/key_event_handler.c  raycasting/raycast_utils.c  raycasting/initialization.c raycasting/raycast_intersections.c raycasting/view_projection.c\
+		  raycasting/draw_walls.c raycasting/walls_utils.c
 MLX = /Users/mait-taj/Desktop/MLX42/build/libmlx42.a -I"/Users/mait-taj/Desktop/MLX42/include/MLX42/MLX42.h" -lglfw -L"/Users/mait-taj/.brew/opt/glfw/lib"
 
 H_LIBFT = libft.h
